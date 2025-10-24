@@ -63,8 +63,14 @@ interface FileWithProgress {
   id: string
 }
 
-export default function ApplicationForm() {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>()
+interface ApplicationFormProps {
+  defaultValues?: Partial<FormData>
+}
+
+export default function ApplicationForm({ defaultValues }: ApplicationFormProps = {}) {
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>({
+    defaultValues: defaultValues || {}
+  })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const owner1SignatureRef = useRef<HTMLCanvasElement>(null)
   const owner2SignatureRef = useRef<HTMLCanvasElement>(null)

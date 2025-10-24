@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 import InputMask from 'react-input-mask'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import '../styles/datepicker-custom.css'
 import { useState, useRef, useEffect } from 'react'
 
 interface FormData {
@@ -596,9 +597,6 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       placeholderText="mm/dd/yyyy"
                       className="large datepicker gform-datepicker mdy datepicker_with_icon"
                       id="dateStarted"
-                      showYearDropdown
-                      scrollableYearDropdown
-                      yearDropdownItemNumber={50}
                     />
                   )}
                 />
@@ -770,9 +768,6 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       placeholderText="mm/dd/yyyy"
                       className="large datepicker gform-datepicker mdy"
                       id="owner1Dob"
-                      showYearDropdown
-                      scrollableYearDropdown
-                      yearDropdownItemNumber={100}
                       maxDate={new Date()}
                     />
                   )}
@@ -949,9 +944,6 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       placeholderText="mm/dd/yyyy"
                       className="large datepicker gform-datepicker mdy datepicker_with_icon"
                       id="owner2Dob"
-                      showYearDropdown
-                      scrollableYearDropdown
-                      yearDropdownItemNumber={100}
                       maxDate={new Date()}
                     />
                   )}

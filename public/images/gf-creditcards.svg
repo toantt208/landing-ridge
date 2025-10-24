@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="32" viewBox="0 0 400 32">
+  <!-- Simple placeholder for credit card icons -->
+  <rect x="5" y="4" width="40" height="24" rx="2" fill="#1A1F71"/>
+  <rect x="59" y="4" width="40" height="24" rx="2" fill="#0066B2"/>
+  <rect x="113" y="4" width="40" height="24" rx="2" fill="#EB001B"/>
+  <rect x="167" y="4" width="40" height="24" rx="2" fill="#FF6000"/>
+  <rect x="221" y="4" width="40" height="24" rx="2" fill="#006FCF"/>
+  <rect x="275" y="4" width="40" height="24" rx="2" fill="#CC0000"/>
+  <rect x="329" y="4" width="40" height="24" rx="2" fill="#ED0006"/>
+  <rect x="383" y="4" width="40" height="24" rx="2" fill="#00579F"/>
+</svg>

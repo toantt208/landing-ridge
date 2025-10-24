@@ -1,0 +1,33 @@
+{
+  "name": "ridgecrest-financial",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@types/nodemailer": "^7.0.3",
+    "html-pdf-node": "^1.0.8",
+    "jquery": "^3.7.1",
+    "next": "^14.2.0",
+    "nodemailer": "^7.0.10",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.65.0",
+    "react-input-mask": "^2.0.4",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.29",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.0",
+    "typescript": "^5"
+  }
+}

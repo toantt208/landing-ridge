@@ -1,33 +1,53 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+    // Toggle body overlay class
+    if (typeof document !== 'undefined') {
+      document.body.classList.toggle('overlay')
+    }
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove('overlay')
+    }
+  }
+
   return (
     <header className="header">
       <div className="auto-container">
         <div className="header__inner">
           <div className="header_logo">
-            <Link href="/">
+            <Link href="/" onClick={closeMenu}>
               <Image src="/images/logo.svg" width={219} height={40} alt="Header Logo" />
             </Link>
           </div>
-          <nav className="header_nav">
+          <nav className={`header_nav ${isMenuOpen ? 'header_nav-toggle' : ''}`}>
             <ul className="nav_list">
               <li className="nav_item">
-                <Link href="/blog" className="nav_link">Blog</Link>
+                <Link href="/blog" className="nav_link" onClick={closeMenu}>Blog</Link>
               </li>
               <li className="nav_item">
-                <Link href="/about-us" className="nav_link">About Us</Link>
+                <Link href="/about-us" className="nav_link" onClick={closeMenu}>About Us</Link>
               </li>
               <li className="nav_item">
-                <Link href="/contact-us" className="nav_link">Contact Us</Link>
+                <Link href="/contact-us" className="nav_link" onClick={closeMenu}>Contact Us</Link>
               </li>
               <li className="nav_item">
-                <Link href="/application" className="nav_btn">Apply for Funding</Link>
+                <Link href="/application" className="nav_btn" onClick={closeMenu}>Apply for Funding</Link>
               </li>
             </ul>
           </nav>
-          <div className="humberget">
+          <div className="humberget" onClick={toggleMenu}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
               <path
                 style={{ lineHeight: 'normal', textIndent: 0, textAlign: 'start', textDecorationLine: 'none', textDecorationStyle: 'solid', textDecorationColor: '#000', textTransform: 'none', isolation: 'auto', mixBlendMode: 'normal' }}

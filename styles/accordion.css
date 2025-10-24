@@ -1,0 +1,41 @@
+/* Smooth accordion animations using grid */
+.faq-main .faq__content .accordion-content {
+  display: grid !important;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 16px;
+}
+
+.faq-main .faq__content .accordion-content.open {
+  grid-template-rows: 1fr;
+  padding: 16px;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-main .faq__content .accordion-content > p {
+  min-height: 0;
+  overflow: hidden;
+  margin: 0;
+  font-size: 16px;
+  line-height: 28px;
+  white-space: pre-line;
+}
+
+.faq-main .faq__content .accordion-header {
+  transition: background-color 0.2s ease;
+}
+
+.faq-main .faq__content .accordion-header:hover {
+  background-color: rgba(55, 0, 143, 0.05);
+}
+
+/* Add active class for the + / - icon */
+.faq-main .faq__content .accordion-header.active::after {
+  content: '−';
+  transition: transform 0.2s ease;
+}
+
+.faq-main .faq__content .accordion-header::after {
+  transition: transform 0.2s ease;
+}

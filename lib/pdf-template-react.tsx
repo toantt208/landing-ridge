@@ -553,9 +553,9 @@ export const ApplicationPDF = ({ data }: { data: ApplicationData }) => (
 
       {/* Authorization Text */}
       <Text style={styles.authorizationText}>
-        By signing below, the Merchant and it's owners / principals: (1) certify that all information and documents submitted
+        By signing below, the Merchant and its owners / principals: (1) certify that all information and documents submitted
         in connection with this Application is true, correct and complete; and (2) authorize RidgeCrest Financial Group, LLC and
-        it's affiliates to receive credit reports including credit card processor statements and bank statements, from one or more
+        its affiliates to receive credit reports including credit card processor statements and bank statements, from one or more
         consumer reporting agencies, such as TransUnion, Experian and Equifax, and from other credit bureaus, banks, creditors
         and other third parties regarding the Merchant and its owners and principals, to verify any information provided on the Application.
       </Text>

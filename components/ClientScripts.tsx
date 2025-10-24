@@ -46,7 +46,7 @@ export default function ClientScripts() {
     <>
       <Script
         src="/js/jquery.min.js"
-        strategy="beforeInteractive"
+        strategy="lazyOnload"
       />
     </>
   )

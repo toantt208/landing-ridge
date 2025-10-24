@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/datepicker-custom.css'
 import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 
 interface FormData {
   legalName: string
@@ -1330,7 +1331,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                   }}
                 >
                   <div style={{ display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", fontSize: '16px', color: '#374151', marginBottom: '0' }}>
-                    <img src="/images/upload-cloud.png"  width={36} height={36} style={{ width: '48px', height: '48px' }} />
+                    <Image src="/images/upload-cloud.png" alt="Upload cloud icon" width={48} height={48} style={{ width: '48px', height: '48px' }} />
                     <span style={{fontSize: '14px', fontWeight: 400, marginBottom: '10px'}}>Drop files here or{' '}</span>
                     <button
                       type="button"

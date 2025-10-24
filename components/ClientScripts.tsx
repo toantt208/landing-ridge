@@ -11,7 +11,7 @@ export default function ClientScripts() {
         const $ = (window as any).$
 
         // Accordion functionality
-        $(".accordion-header").off('click').on('click', function() {
+        $(".accordion-header").off('click').on('click', function(this: any) {
           $(".accordion-content").not($(this).next()).slideUp()
           $(".accordion-header").not(this).removeClass("active")
           $(this).next().slideToggle()

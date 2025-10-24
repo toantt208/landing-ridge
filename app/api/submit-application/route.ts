@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import html_to_pdf from 'html-pdf-node'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import { generatePDFTemplate } from '@/lib/pdf-template'
 import { writeFile } from 'fs/promises'
 import path from 'path'
@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
     // PDF generation options
     const options = {
       format: 'A4',
+      printBackground: true,
       margin: {
         top: '20px',
         right: '20px',
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
     const file = { content: htmlContent }
 
     // Generate PDF buffer
-    const pdfBuffer = await html_to_pdf.generatePdf(file, options)
+    const pdfBuffer = (await html_to_pdf.generatePdf(file, options)) as unknown as Buffer
 
     // Save PDF to public/pdfs directory for backup
     const timestamp = Date.now()
@@ -49,68 +50,28 @@ export async function POST(request: NextRequest) {
     const publicPath = path.join(process.cwd(), 'public', 'pdfs', filename)
     await writeFile(publicPath, pdfBuffer)
 
-    // Configure email transporter
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    })
+    // Initialize Resend client
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
-    // Email content
-    const mailOptions = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: [formData.email, process.env.ADMIN_EMAIL].filter(Boolean).join(', '),
+    // Prepare email recipients
+    const recipients = [formData.email]
+    if (process.env.NOTIFICATION_EMAIL) {
+      recipients.push(process.env.NOTIFICATION_EMAIL)
+    }
+
+    // Send email using Resend with the same HTML used for PDF generation
+    await resend.emails.send({
+      from: 'Ridge Crest Applications <onboarding@resend.dev>',
+      to: recipients,
       subject: `New Funding Application - ${formData.legalName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #204ce5;">New Funding Application Received</h2>
-          <p>A new funding application has been submitted.</p>
-
-          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #374151;">Application Details</h3>
-            <p><strong>Business Name:</strong> ${formData.legalName}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Date Submitted:</strong> ${new Date().toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}</p>
-          </div>
-
-          <p>Please find the complete application attached as a PDF document.</p>
-
-          ${fileNames.length > 0 ? `
-          <div style="margin-top: 20px;">
-            <h4 style="color: #374151;">Additional Documents Uploaded:</h4>
-            <ul>
-              ${fileNames.map((name: string) => `<li>${name}</li>`).join('')}
-            </ul>
-          </div>
-          ` : ''}
-
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;" />
-
-          <p style="color: #6b7280; font-size: 12px;">
-            This is an automated email. Please do not reply to this message.
-          </p>
-        </div>
-      `,
+      html: htmlContent,
       attachments: [
         {
-          filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${Date.now()}.pdf`,
+          filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${timestamp}.pdf`,
           content: pdfBuffer,
         },
       ],
-    }
-
-    // Send email
-    await transporter.sendMail(mailOptions)
+    })
 
     return NextResponse.json(
       {

@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
     // PDF generation options
     const options = {
       format: 'A4',
+      printBackground: true,
       margin: {
         top: '20px',
         right: '20px',
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
     const file = { content: htmlContent }
 
     // Generate PDF buffer
-    const pdfBuffer = await html_to_pdf.generatePdf(file, options)
+    const pdfBuffer = (await html_to_pdf.generatePdf(file, options)) as unknown as Buffer
 
     // Generate filename with timestamp
     const timestamp = Date.now()

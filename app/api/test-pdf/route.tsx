@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import html_to_pdf from 'html-pdf-node'
-import { generatePDFTemplate } from '@/lib/pdf-template'
+import { renderToBuffer } from '@react-pdf/renderer'
+import { ApplicationPDF } from '@/lib/pdf-template-react'
 import { writeFile } from 'fs/promises'
 import path from 'path'
 
@@ -22,34 +22,19 @@ export async function POST(request: NextRequest) {
       fileNames
     }
 
-    // Generate HTML from template
-    const htmlContent = generatePDFTemplate(pdfData)
-
-    // PDF generation options
-    const options = {
-      format: 'A4',
-      printBackground: true,
-      margin: {
-        top: '20px',
-        right: '20px',
-        bottom: '20px',
-        left: '20px'
-      }
-    }
-
-    const file = { content: htmlContent }
-
-    // Generate PDF buffer
-    const pdfBuffer = (await html_to_pdf.generatePdf(file, options)) as unknown as Buffer
+    // Generate PDF buffer using React PDF (works in serverless environments)
+    const pdfBuffer = await renderToBuffer(<ApplicationPDF data={pdfData} />)
 
     // Generate filename with timestamp
     const timestamp = Date.now()
     const businessName = formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()
     const filename = `application-${businessName}-${timestamp}.pdf`
 
-    // Save to public/pdfs directory
-    const publicPath = path.join(process.cwd(), 'public', 'pdfs', filename)
-    await writeFile(publicPath, pdfBuffer)
+    // Save to public/pdfs directory (only in development)
+    if (process.env.NODE_ENV === 'development') {
+      const publicPath = path.join(process.cwd(), 'public', 'pdfs', filename)
+      await writeFile(publicPath, pdfBuffer)
+    }
 
     // Return success with file path
     return NextResponse.json(
@@ -57,8 +42,10 @@ export async function POST(request: NextRequest) {
         message: 'PDF generated successfully',
         success: true,
         filename: filename,
-        url: `/pdfs/${filename}`,
-        viewUrl: `http://localhost:3000/pdfs/${filename}`
+        ...(process.env.NODE_ENV === 'development' && {
+          url: `/pdfs/${filename}`,
+          viewUrl: `http://localhost:3000/pdfs/${filename}`
+        })
       },
       { status: 200 }
     )

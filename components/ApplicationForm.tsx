@@ -1,7 +1,9 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import InputMask from 'react-input-mask'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import { useState, useRef, useEffect } from 'react'
 
 interface FormData {
@@ -68,7 +70,7 @@ interface ApplicationFormProps {
 }
 
 export default function ApplicationForm({ defaultValues }: ApplicationFormProps = {}) {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<FormData>({
     defaultValues: defaultValues || {}
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -78,6 +80,25 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
   const [isDragging, setIsDragging] = useState(false)
   const [filesWithProgress, setFilesWithProgress] = useState<FileWithProgress[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Helper to format date as MM/DD/YYYY for form submission
+  const formatDateForSubmit = (date: Date | null): string => {
+    if (!date) return ''
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    const year = date.getFullYear()
+    return `${month}/${day}/${year}`
+  }
+
+  // Helper to parse date string (MM/DD/YYYY) to Date object
+  const parseDateString = (dateStr: string | undefined): Date | null => {
+    if (!dateStr) return null
+    const parts = dateStr.split('/')
+    if (parts.length !== 3) return null
+    const [month, day, year] = parts.map(p => parseInt(p, 10))
+    if (isNaN(month) || isNaN(day) || isNaN(year)) return null
+    return new Date(year, month - 1, day)
+  }
 
   useEffect(() => {
     const setupCanvas = (canvas: HTMLCanvasElement | null) => {
@@ -563,13 +584,23 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Date Business Started <span className="gfield_required gfield_required_text">(Required)</span>
               </label>
               <div className="ginput_container ginput_container_date">
-                <input
-                  type="text"
-                  id="dateStarted"
-                  className="large datepicker gform-datepicker mdy datepicker_with_icon"
-                  placeholder="mm/dd/yyyy"
-                  {...register('dateStarted', { required: true })}
-                  style={{width:'100%'}}
+                <Controller
+                  name="dateStarted"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={parseDateString(field.value)}
+                      onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
+                      dateFormat="MM/dd/yyyy"
+                      placeholderText="mm/dd/yyyy"
+                      className="large datepicker gform-datepicker mdy datepicker_with_icon"
+                      id="dateStarted"
+                      showYearDropdown
+                      scrollableYearDropdown
+                      yearDropdownItemNumber={50}
+                    />
+                  )}
                 />
                 {errors.dateStarted && <span className="gfield_description validation_message">This field is required</span>}
               </div>
@@ -727,12 +758,24 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Date of Birth <span className="gfield_required gfield_required_text">(Required)</span>
               </label>
               <div className="ginput_container ginput_container_date">
-                <input
-                  type="text"
-                  id="owner1Dob"
-                  className="large datepicker gform-datepicker mdy"
-                  placeholder="mm/dd/yyyy"
-                  {...register('owner1Dob', { required: true })}
+                <Controller
+                  name="owner1Dob"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={parseDateString(field.value)}
+                      onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
+                      dateFormat="MM/dd/yyyy"
+                      placeholderText="mm/dd/yyyy"
+                      className="large datepicker gform-datepicker mdy"
+                      id="owner1Dob"
+                      showYearDropdown
+                      scrollableYearDropdown
+                      yearDropdownItemNumber={100}
+                      maxDate={new Date()}
+                    />
+                  )}
                 />
                 {errors.owner1Dob && <span className="gfield_description validation_message">This field is required</span>}
               </div>
@@ -895,12 +938,23 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Date of Birth
               </label>
               <div className="ginput_container ginput_container_date">
-                <input
-                  type="text"
-                  id="owner2Dob"
-                  className="large datepicker gform-datepicker mdy datepicker_with_icon"
-                  placeholder="mm/dd/yyyy"
-                  {...register('owner2Dob')}
+                <Controller
+                  name="owner2Dob"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={parseDateString(field.value)}
+                      onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
+                      dateFormat="MM/dd/yyyy"
+                      placeholderText="mm/dd/yyyy"
+                      className="large datepicker gform-datepicker mdy datepicker_with_icon"
+                      id="owner2Dob"
+                      showYearDropdown
+                      scrollableYearDropdown
+                      yearDropdownItemNumber={100}
+                      maxDate={new Date()}
+                    />
+                  )}
                 />
               </div>
             </div>
@@ -1159,12 +1213,20 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Date
               </label>
               <div className="ginput_container ginput_container_date">
-                <input
-                  type="text"
-                  id="owner1Date"
-                  className="large datepicker gform-datepicker mdy datepicker_with_icon"
-                  placeholder="mm/dd/yyyy"
-                  {...register('owner1Date')}
+                <Controller
+                  name="owner1Date"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={parseDateString(field.value)}
+                      onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
+                      dateFormat="MM/dd/yyyy"
+                      placeholderText="mm/dd/yyyy"
+                      className="large datepicker gform-datepicker mdy datepicker_with_icon"
+                      id="owner1Date"
+                      maxDate={new Date()}
+                    />
+                  )}
                 />
               </div>
             </div>
@@ -1238,12 +1300,20 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Date
               </label>
               <div className="ginput_container ginput_container_date">
-                <input
-                  type="text"
-                  id="owner2Date"
-                  className="large datepicker gform-datepicker mdy datepicker_with_icon"
-                  placeholder="mm/dd/yyyy"
-                  {...register('owner2Date')}
+                <Controller
+                  name="owner2Date"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={parseDateString(field.value)}
+                      onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
+                      dateFormat="MM/dd/yyyy"
+                      placeholderText="mm/dd/yyyy"
+                      className="large datepicker gform-datepicker mdy datepicker_with_icon"
+                      id="owner2Date"
+                      maxDate={new Date()}
+                    />
+                  )}
                 />
               </div>
             </div>

@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@react-pdf/renderer": "^4.3.1",
+    "@types/react-datepicker": "^6.2.0",
     "batch": "^0.6.1",
     "emitter-component": "^1.1.2",
-    "html-pdf-node": "^1.0.8",
     "jquery": "^3.7.1",
     "next": "^14.2.0",
     "react": "^18",
+    "react-datepicker": "^8.8.0",
     "react-dom": "^18",
     "react-hook-form": "^7.65.0",
     "react-input-mask": "^2.0.4",
@@ -23,7 +25,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/html-pdf-node": "^1.0.2",
     "@types/jquery": "^3.5.29",
     "@types/node": "^20",
     "@types/react": "^18",

@@ -44,18 +44,40 @@ export async function POST(request: NextRequest) {
     // Initialize Resend client
     const resend = new Resend(process.env.RESEND_API_KEY)
 
-    // Prepare email recipients
-    const recipients = [formData.email]
-    if (process.env.NOTIFICATION_EMAIL) {
-      recipients.push(process.env.NOTIFICATION_EMAIL)
-    }
+    const adminEmail = 'submissions@ridgecrestfg.com'
 
-    // Send email using Resend with the same HTML used for PDF generation
+    // Send email to admin with full application details
     await resend.emails.send({
       from: 'Ridge Crest Applications <onboarding@resend.dev>',
-      to: recipients,
+      to: adminEmail,
       subject: `New Funding Application - ${formData.legalName}`,
       html: htmlContent,
+      attachments: [
+        {
+          filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${timestamp}.pdf`,
+          content: pdfBuffer,
+        },
+      ],
+    })
+
+    // Send confirmation email to submitter with a copy of the application
+    await resend.emails.send({
+      from: 'Ridge Crest Applications <onboarding@resend.dev>',
+      to: formData.email,
+      subject: `Application Received - ${formData.legalName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #37008F;">Thank You for Your Application</h2>
+          <p>Dear ${formData.owner1Name || 'Applicant'},</p>
+          <p>We have received your funding application for <strong>${formData.legalName}</strong>.</p>
+          <p>Our team will review your application and get back to you shortly. A copy of your application is attached to this email for your records.</p>
+          <p>If you have any questions, please don't hesitate to contact us.</p>
+          <br>
+          <p>Best regards,</p>
+          <p><strong>Ridge Crest Financial Group</strong></p>
+          <p style="color: #666; font-size: 14px;">Email: admin@ridgecrestfg.com</p>
+        </div>
+      `,
       attachments: [
         {
           filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${timestamp}.pdf`,

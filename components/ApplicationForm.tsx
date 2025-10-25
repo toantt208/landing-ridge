@@ -1160,7 +1160,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       borderRadius: '4px',
                       backgroundColor: '#d1d1d1',
                       cursor: 'crosshair',
-                      width: '400px',
+                      width: '100%',
+                      maxWidth: '400px',
                       height: '200px',
                       display: 'block'
                     }}
@@ -1247,7 +1248,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       borderRadius: '4px',
                       backgroundColor: '#d1d1d1',
                       cursor: 'crosshair',
-                      width: '400px',
+                      width: '100%',
+                      maxWidth: '400px',
                       height: '200px',
                       display: 'block'
                     }}

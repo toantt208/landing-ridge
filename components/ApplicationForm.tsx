@@ -7,6 +7,14 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/datepicker-custom.css'
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
+import { validateFile, formatFileSize } from '@/lib/file-utils'
+
+interface UploadedFile {
+  url: string
+  filename: string
+  size: number
+  fileId: string
+}
 
 interface FormData {
   legalName: string
@@ -81,6 +89,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
   const [isDrawing, setIsDrawing] = useState({ owner1: false, owner2: false })
   const [isDragging, setIsDragging] = useState(false)
   const [filesWithProgress, setFilesWithProgress] = useState<FileWithProgress[]>([])
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
+  const [uploadError, setUploadError] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Helper to format date as MM/DD/YYYY for form submission
@@ -151,19 +161,70 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
 
-  const simulateUpload = (fileWithProgress: FileWithProgress) => {
-    const interval = setInterval(() => {
+  const uploadFileToSanity = async (fileWithProgress: FileWithProgress) => {
+    try {
+      // Validate file first
+      const validation = validateFile(fileWithProgress.file)
+      if (!validation.valid) {
+        setUploadError(validation.error || 'Invalid file')
+        // Remove failed file from progress list
+        setFilesWithProgress(prev => prev.filter(f => f.id !== fileWithProgress.id))
+        return
+      }
+
+      // Upload via our API route
+      const formData = new FormData()
+      formData.append('file', fileWithProgress.file)
+
+      // Simulate progress while uploading
+      const progressInterval = setInterval(() => {
+        setFilesWithProgress(prev =>
+          prev.map(f => {
+            if (f.id === fileWithProgress.id && f.progress < 90) {
+              return { ...f, progress: Math.min(f.progress + 10, 90) }
+            }
+            return f
+          })
+        )
+      }, 300)
+
+      const response = await fetch('/api/upload-file', {
+        method: 'POST',
+        body: formData,
+      })
+
+      clearInterval(progressInterval)
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to upload file')
+      }
+
+      const data = await response.json()
+
+      // Mark as complete
       setFilesWithProgress(prev =>
         prev.map(f => {
-          if (f.id === fileWithProgress.id && f.progress < 100) {
-            return { ...f, progress: Math.min(f.progress + 10, 100) }
+          if (f.id === fileWithProgress.id) {
+            return { ...f, progress: 100 }
           }
           return f
         })
       )
-    }, 200)
 
-    setTimeout(() => clearInterval(interval), 2200)
+      // Add to uploaded files list
+      setUploadedFiles(prev => [...prev, {
+        url: data.url,
+        filename: data.filename,
+        size: data.size,
+        fileId: data.fileId,
+      }])
+    } catch (error) {
+      console.error('Error uploading file:', error)
+      setUploadError(`Failed to upload ${fileWithProgress.file.name}`)
+      // Remove failed file from progress list
+      setFilesWithProgress(prev => prev.filter(f => f.id !== fileWithProgress.id))
+    }
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -193,6 +254,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
   }
 
   const addFiles = (files: File[]) => {
+    setUploadError('') // Clear previous errors
+
     const newFilesWithProgress: FileWithProgress[] = files.map(file => ({
       file,
       progress: 0,
@@ -207,13 +270,17 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
     allFiles.forEach(file => dataTransfer.items.add(file))
     setValue('files', dataTransfer.files)
 
-    // Simulate upload for each new file
+    // Upload each new file to Sanity
     newFilesWithProgress.forEach(fileWithProgress => {
-      simulateUpload(fileWithProgress)
+      uploadFileToSanity(fileWithProgress)
     })
   }
 
   const removeFile = (id: string) => {
+    // Find the file to get its details
+    const fileToRemove = filesWithProgress.find(f => f.id === id)
+
+    // Remove from progress list
     setFilesWithProgress(prev => {
       const updated = prev.filter(f => f.id !== id)
 
@@ -224,14 +291,11 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
 
       return updated
     })
-  }
 
-  const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes'
-    const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i]
+    // Also remove from uploaded files if it was uploaded
+    if (fileToRemove) {
+      setUploadedFiles(prev => prev.filter(f => f.filename !== fileToRemove.file.name))
+    }
   }
 
   const handleSelectFilesClick = () => {
@@ -242,19 +306,24 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
     setIsSubmitting(true)
 
     try {
+      // Check if all files have finished uploading
+      const hasUploadingFiles = filesWithProgress.some(f => f.progress < 100)
+      if (hasUploadingFiles) {
+        alert('Please wait for all files to finish uploading before submitting.')
+        setIsSubmitting(false)
+        return
+      }
+
       // Convert signature canvases to base64 images
       const owner1SignatureData = owner1SignatureRef.current?.toDataURL('image/png') || null
       const owner2SignatureData = owner2SignatureRef.current?.toDataURL('image/png') || null
 
-      // Get file names from uploaded files
-      const fileNames = filesWithProgress.map(f => f.file.name)
-
-      // Prepare payload
+      // Prepare payload with uploaded file URLs
       const payload = {
         formData: data,
         owner1Signature: owner1SignatureData,
         owner2Signature: owner2SignatureData,
-        fileNames
+        attachments: uploadedFiles
       }
 
       // Send to API
@@ -270,8 +339,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
 
       if (result.success) {
         alert('Application submitted successfully! A PDF copy has been sent to your email.')
-        // Optional: Reset form or redirect
-        // window.location.href = '/thank-you'
+        // Redirect to thank you page
+        window.location.href = '/thank-you'
       } else {
         throw new Error(result.message || 'Failed to submit application')
       }
@@ -1318,6 +1387,11 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Upload Bank Statements and Month to Date (MTD) Browse Files
               </label>
               <div className="ginput_container ginput_container_fileupload">
+                {uploadError && (
+                  <div style={{ padding: '10px', marginBottom: '10px', backgroundColor: '#fee2e2', border: '1px solid #fecaca', borderRadius: '4px', color: '#dc2626', fontSize: '14px' }}>
+                    {uploadError}
+                  </div>
+                )}
                 <div
                   className={`dropzone ${isDragging ? 'dragging' : ''}`}
                   onDragOver={handleDragOver}
@@ -1359,7 +1433,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                     ref={fileInputRef}
                     type="file"
                     multiple
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.jpg,.jpeg,.png,.gif"
                     onChange={handleFileSelect}
                     style={{ display: 'none' }}
                   />
@@ -1428,8 +1502,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                     ))}
                   </div>
                 )}
-                <span className="gfield_description" style={{ display: 'block', marginTop: '8px' }}>
-                  Max. file size: 1 GB.
+                <span className="gfield_description" style={{ display: 'block', marginTop: '8px', fontSize: '12px', color: '#666' }}>
+                  Max. file size: 100MB. Allowed types: PDF, DOC, DOCX, XLS, XLSX, CSV, JPG, PNG, GIF
                 </span>
               </div>
             </div>

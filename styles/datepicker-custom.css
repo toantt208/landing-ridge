@@ -26,6 +26,7 @@
 .react-datepicker__navigation {
   background: transparent !important;
   border: none !important;
+  box-shadow: none !important;
 }
 
 .react-datepicker__navigation--previous,
@@ -33,6 +34,7 @@
   background: transparent !important;
   border: none !important;
   outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Style the navigation icons */
@@ -97,6 +99,10 @@
 .react-datepicker__current-month {
   font-weight: 600 !important;
   color: #333 !important;
+}
+
+.react-datepicker__current-month.react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown {
+  margin-bottom: 10px !important;
 }
 
 /* Optional: Style the selected date */

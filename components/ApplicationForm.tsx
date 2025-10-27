@@ -673,6 +673,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       placeholderText="mm/dd/yyyy"
                       className="large datepicker gform-datepicker mdy datepicker_with_icon"
                       id="dateStarted"
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
                 />
@@ -845,6 +848,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       className="large datepicker gform-datepicker mdy"
                       id="owner1Dob"
                       maxDate={new Date()}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
                 />
@@ -1021,6 +1027,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       className="large datepicker gform-datepicker mdy datepicker_with_icon"
                       id="owner2Dob"
                       maxDate={new Date()}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
                 />
@@ -1294,6 +1303,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       className="large datepicker gform-datepicker mdy datepicker_with_icon"
                       id="owner1Date"
                       maxDate={new Date()}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
                 />
@@ -1382,6 +1394,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       className="large datepicker gform-datepicker mdy datepicker_with_icon"
                       id="owner2Date"
                       maxDate={new Date()}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
                 />

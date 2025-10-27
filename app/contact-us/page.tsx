@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { Metadata } from 'next'
+import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
@@ -101,16 +101,26 @@ export default function ContactUs() {
                 </div>
               </div>
               <div className="form-content">
-                {submitStatus === 'success' && (
-                  <div style={{ padding: '20px', marginBottom: '20px', backgroundColor: '#d4edda', border: '1px solid #c3e6cb', borderRadius: '5px', color: '#155724' }}>
-                    Thank you for your message! We&apos;ll get back to you soon.
-                  </div>
-                )}
                 {submitStatus === 'error' && (
                   <div style={{ padding: '20px', marginBottom: '20px', backgroundColor: '#f8d7da', border: '1px solid #f5c6cb', borderRadius: '5px', color: '#721c24' }}>
                     {errorMessage}
                   </div>
                 )}
+                {submitStatus === 'success' ? (
+                  <div className="gform_confirmation_wrapper gform_wrapper gform-theme gform-theme--foundation gform-theme--framework gform-theme--orbital ">
+                    <div className="gform_confirmation_message_5 gform_confirmation_message">
+                      <div className="contact-confirmation">
+                        <h3>Thank You!</h3>
+                        <p>Your message was sent successfully.</p>
+                        <p>We&apos;ve received your inquiry and will reach out within 24h.</p>
+                        <div className="btn-grp">
+                          <Link href="/" className="btn">Back to Home</Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
                 <div className="gf_browser_chrome gform_wrapper gform-theme gform-theme--foundation gform-theme--framework gform-theme--orbital" data-form-theme="orbital" data-form-index="0" id="gform_wrapper_5">
                   <form onSubmit={handleSubmit} className="gform_form" id="gform_5">
                     <div className="gform-body gform_body">
@@ -219,6 +229,8 @@ export default function ContactUs() {
                     </div>
                   </form>
                 </div>
+                  </>
+                )}
                 <Image className="formIcon" src="/images/letter-send.svg" alt="Form Img" width={240} height={112} />
               </div>
             </div>

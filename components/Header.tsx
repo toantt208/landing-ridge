@@ -34,9 +34,6 @@ export default function Header() {
           <nav className={`header_nav ${isMenuOpen ? 'header_nav-toggle' : ''}`}>
             <ul className="nav_list">
               <li className="nav_item">
-                <Link href="/blog" className="nav_link" onClick={closeMenu}>Blog</Link>
-              </li>
-              <li className="nav_item">
                 <Link href="/about-us" className="nav_link" onClick={closeMenu}>About Us</Link>
               </li>
               <li className="nav_item">

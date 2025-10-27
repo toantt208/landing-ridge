@@ -34,7 +34,6 @@ export default function Footer() {
               <ul className="widget-content">
                 <li><Link href="/about-us">About Us</Link></li>
                 <li><Link href="/contact-us">Contact Us</Link></li>
-                <li><Link href="/blog">Blogs</Link></li>
               </ul>
             </div>
             <div>

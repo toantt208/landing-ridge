@@ -3,6 +3,10 @@ import { Rubik } from 'next/font/google'
 import Script from 'next/script'
 import ClientScripts from '@/components/ClientScripts'
 import '../styles/style.css'
+import '../styles/gravity-forms-theme-foundation.min.css'
+import '../styles/gravity-forms-theme-reset.min.css'
+import '../styles/gravity-forms-theme-framework.min.css'
+import '../styles/gravity-forms-orbital-theme.min.css'
 import './globals.css'
 
 const rubik = Rubik({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })

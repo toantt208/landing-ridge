@@ -401,7 +401,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Address <span className="gfield_required gfield_required_text">(Required)</span>
               </label>
               <div className="ginput_container ginput_container_address">
-                <span className="ginput_full address_line_1 ginput_address_line_1 gform-grid-col" style={{paddingInline: 0}}>
+                <div style={{width: '100%', marginBottom: '16px'}}>
                   <input
                     type="text"
                     id="businessAddress"
@@ -409,85 +409,90 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                     {...register('businessAddress', { required: true })}
                   />
                   <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessAddress">Street Address</label>
-                </span>
-                <span className="ginput_left address_city ginput_address_city gform-grid-col" style={{paddingInline: 0}}>
-                  <input
-                    type="text"
-                    id="businessCity"
-                    className="large"
-                    {...register('businessCity', { required: true })}
-                  />
-                  <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessCity">City</label>
-                </span>
-                <span className="ginput_right address_state ginput_address_state gform-grid-col" style={{paddingInline: 0}}>
-                  <select
-                    id="businessState"
-                    {...register('businessState', { required: true })}
-                  >
-                    <option value=""></option>
-                    <option value="Alabama">Alabama</option>
-                    <option value="Alaska">Alaska</option>
-                    <option value="American Samoa">American Samoa</option>
-                    <option value="Arizona">Arizona</option>
-                    <option value="Arkansas">Arkansas</option>
-                    <option value="California">California</option>
-                    <option value="Colorado">Colorado</option>
-                    <option value="Connecticut">Connecticut</option>
-                    <option value="Delaware">Delaware</option>
-                    <option value="District of Columbia">District of Columbia</option>
-                    <option value="Florida">Florida</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Guam">Guam</option>
-                    <option value="Hawaii">Hawaii</option>
-                    <option value="Idaho">Idaho</option>
-                    <option value="Illinois">Illinois</option>
-                    <option value="Indiana">Indiana</option>
-                    <option value="Iowa">Iowa</option>
-                    <option value="Kansas">Kansas</option>
-                    <option value="Kentucky">Kentucky</option>
-                    <option value="Louisiana">Louisiana</option>
-                    <option value="Maine">Maine</option>
-                    <option value="Maryland">Maryland</option>
-                    <option value="Massachusetts">Massachusetts</option>
-                    <option value="Michigan">Michigan</option>
-                    <option value="Minnesota">Minnesota</option>
-                    <option value="Mississippi">Mississippi</option>
-                    <option value="Missouri">Missouri</option>
-                    <option value="Montana">Montana</option>
-                    <option value="Nebraska">Nebraska</option>
-                    <option value="Nevada">Nevada</option>
-                    <option value="New Hampshire">New Hampshire</option>
-                    <option value="New Jersey">New Jersey</option>
-                    <option value="New Mexico">New Mexico</option>
-                    <option value="New York">New York</option>
-                    <option value="North Carolina">North Carolina</option>
-                    <option value="North Dakota">North Dakota</option>
-                    <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-                    <option value="Ohio">Ohio</option>
-                    <option value="Oklahoma">Oklahoma</option>
-                    <option value="Oregon">Oregon</option>
-                    <option value="Pennsylvania">Pennsylvania</option>
-                    <option value="Puerto Rico">Puerto Rico</option>
-                    <option value="Rhode Island">Rhode Island</option>
-                    <option value="South Carolina">South Carolina</option>
-                    <option value="South Dakota">South Dakota</option>
-                    <option value="Tennessee">Tennessee</option>
-                    <option value="Texas">Texas</option>
-                    <option value="Utah">Utah</option>
-                    <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
-                    <option value="Vermont">Vermont</option>
-                    <option value="Virginia">Virginia</option>
-                    <option value="Washington">Washington</option>
-                    <option value="West Virginia">West Virginia</option>
-                    <option value="Wisconsin">Wisconsin</option>
-                    <option value="Wyoming">Wyoming</option>
-                    <option value="Armed Forces Americas">Armed Forces Americas</option>
-                    <option value="Armed Forces Europe">Armed Forces Europe</option>
-                    <option value="Armed Forces Pacific">Armed Forces Pacific</option>
-                  </select>
-                  <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessState">State</label>
-                </span>
-                <span className="ginput_left address_zip ginput_address_zip gform-grid-col" style={{paddingInline: 0}}>
+                </div>
+
+                <div style={{display: 'flex', gap: '16px', marginBottom: '16px'}}>
+                  <div style={{flex: 1}}>
+                    <input
+                      type="text"
+                      id="businessCity"
+                      className="large"
+                      {...register('businessCity', { required: true })}
+                    />
+                    <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessCity">City</label>
+                  </div>
+
+                  <div style={{flex: 1}}>
+                    <select
+                      id="businessState"
+                      {...register('businessState', { required: true })}
+                    >
+                      <option value=""></option>
+                      <option value="Alabama">Alabama</option>
+                      <option value="Alaska">Alaska</option>
+                      <option value="American Samoa">American Samoa</option>
+                      <option value="Arizona">Arizona</option>
+                      <option value="Arkansas">Arkansas</option>
+                      <option value="California">California</option>
+                      <option value="Colorado">Colorado</option>
+                      <option value="Connecticut">Connecticut</option>
+                      <option value="Delaware">Delaware</option>
+                      <option value="District of Columbia">District of Columbia</option>
+                      <option value="Florida">Florida</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Guam">Guam</option>
+                      <option value="Hawaii">Hawaii</option>
+                      <option value="Idaho">Idaho</option>
+                      <option value="Illinois">Illinois</option>
+                      <option value="Indiana">Indiana</option>
+                      <option value="Iowa">Iowa</option>
+                      <option value="Kansas">Kansas</option>
+                      <option value="Kentucky">Kentucky</option>
+                      <option value="Louisiana">Louisiana</option>
+                      <option value="Maine">Maine</option>
+                      <option value="Maryland">Maryland</option>
+                      <option value="Massachusetts">Massachusetts</option>
+                      <option value="Michigan">Michigan</option>
+                      <option value="Minnesota">Minnesota</option>
+                      <option value="Mississippi">Mississippi</option>
+                      <option value="Missouri">Missouri</option>
+                      <option value="Montana">Montana</option>
+                      <option value="Nebraska">Nebraska</option>
+                      <option value="Nevada">Nevada</option>
+                      <option value="New Hampshire">New Hampshire</option>
+                      <option value="New Jersey">New Jersey</option>
+                      <option value="New Mexico">New Mexico</option>
+                      <option value="New York">New York</option>
+                      <option value="North Carolina">North Carolina</option>
+                      <option value="North Dakota">North Dakota</option>
+                      <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                      <option value="Ohio">Ohio</option>
+                      <option value="Oklahoma">Oklahoma</option>
+                      <option value="Oregon">Oregon</option>
+                      <option value="Pennsylvania">Pennsylvania</option>
+                      <option value="Puerto Rico">Puerto Rico</option>
+                      <option value="Rhode Island">Rhode Island</option>
+                      <option value="South Carolina">South Carolina</option>
+                      <option value="South Dakota">South Dakota</option>
+                      <option value="Tennessee">Tennessee</option>
+                      <option value="Texas">Texas</option>
+                      <option value="Utah">Utah</option>
+                      <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
+                      <option value="Vermont">Vermont</option>
+                      <option value="Virginia">Virginia</option>
+                      <option value="Washington">Washington</option>
+                      <option value="West Virginia">West Virginia</option>
+                      <option value="Wisconsin">Wisconsin</option>
+                      <option value="Wyoming">Wyoming</option>
+                      <option value="Armed Forces Americas">Armed Forces Americas</option>
+                      <option value="Armed Forces Europe">Armed Forces Europe</option>
+                      <option value="Armed Forces Pacific">Armed Forces Pacific</option>
+                    </select>
+                    <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessState">State</label>
+                  </div>
+                </div>
+
+                <div style={{width: '50%'}}>
                   <input
                     type="text"
                     id="businessZip"
@@ -495,7 +500,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                     {...register('businessZip', { required: true })}
                   />
                   <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessZip">ZIP Code</label>
-                </span>
+                </div>
+
                 {(errors.businessAddress || errors.businessCity || errors.businessState || errors.businessZip) && (
                   <span className="gfield_description validation_message">This field is required</span>
                 )}

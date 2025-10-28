@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to admin
     await resend.emails.send({
-      from: 'Ridge Crest Contact Form <onboarding@resend.dev>',
+      from: 'Ridgecrest Contact Form <onboarding@resend.dev>',
       to: adminEmail,
       replyTo: email,
       subject: subject ? `Contact Form: ${subject}` : `New Contact Form Submission from ${firstName} ${lastName}`,
@@ -78,9 +78,9 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to user
     await resend.emails.send({
-      from: 'Ridge Crest Financial Group <onboarding@resend.dev>',
+      from: 'Ridgecrest Financial Group <onboarding@resend.dev>',
       to: email,
-      subject: 'Thank you for contacting Ridge Crest Financial Group',
+      subject: 'Thank you for contacting Ridgecrest Financial Group',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <h2 style="color: #37008F;">Thank You for Reaching Out!</h2>
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
           </p>
           <br>
           <p>Best regards,</p>
-          <p><strong>Ridge Crest Financial Group</strong></p>
+          <p><strong>Ridgecrest Financial Group</strong></p>
           <p style="color: #666; font-size: 14px;">Your Partner in Business Growth</p>
         </div>
       `,

@@ -4,8 +4,8 @@ import Link from 'next/link'
 import ApplicationForm from '@/components/ApplicationForm'
 
 export const metadata: Metadata = {
-  title: 'Business Funding Application (Mockup) - Ridge Crest Financial Group',
-  description: 'Apply for business funding with Ridge Crest Financial Group. Complete our secure online application to get started with your business financing.',
+  title: 'Business Funding Application (Mockup) - Ridgecrest Financial Group',
+  description: 'Apply for business funding with Ridgecrest Financial Group. Complete our secure online application to get started with your business financing.',
   robots: 'noindex, nofollow',
 }
 

@@ -13,14 +13,14 @@ import './globals.css'
 const rubik = Rubik({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 
 export const metadata: Metadata = {
-  title: 'Ridge Crest Financial Group - RidgeCrest',
-  description: 'Get fast, flexible business loans & financing with Ridge Crest Financial Group. Secure capital, grow your business.',
+  title: 'Ridgecrest Financial Group - RidgeCrest',
+  description: 'Get fast, flexible business loans & financing with Ridgecrest Financial Group. Secure capital, grow your business.',
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   openGraph: {
     locale: 'en_US',
     type: 'website',
-    title: 'Ridge Crest Financial Group - RidgeCrest',
-    description: 'Get fast, flexible business loans & financing with Ridge Crest Financial Group. Secure capital, grow your business.',
+    title: 'Ridgecrest Financial Group - RidgeCrest',
+    description: 'Get fast, flexible business loans & financing with Ridgecrest Financial Group. Secure capital, grow your business.',
     url: 'https://ridgecrestfg.com/',
     siteName: 'ridgecrestfg',
   },

@@ -6,10 +6,10 @@ export default function WhyUs() {
     <section className="whyus-main sec-padd">
       <div className="auto-container">
         <div className="section-title">
-          <h2 className="title">Why <span>Ridge Crest Financial Group?</span></h2>
+          <h2 className="title">Why <span>Ridgecrest Financial Group?</span></h2>
           <p className="description">
             Experience the difference with our exclusive and customized financing options. <br />
-            Join those who have elevated their business potential with Ridge Crest.
+            Join those who have elevated their business potential with Ridgecrest.
           </p>
         </div>
         <div className="whyus-container">

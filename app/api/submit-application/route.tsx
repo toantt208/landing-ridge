@@ -226,7 +226,7 @@ export async function POST(request: NextRequest) {
     console.log(1111, adminEmail)
     // Send email to admin with PDF attachment
     await resend.emails.send({
-      from: 'Ridge Crest Funding Application <onboarding@resend.dev>',
+      from: 'Ridgecrest Funding Application <onboarding@resend.dev>',
       to: adminEmail,
       replyTo: formData.email,
       subject: `New Funding Application from ${formData.legalName}`,
@@ -241,14 +241,14 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to applicant with PDF and uploaded files
     await resend.emails.send({
-      from: 'Ridge Crest Financial Group <onboarding@resend.dev>',
+      from: 'Ridgecrest Financial Group <onboarding@resend.dev>',
       to: formData.email,
       subject: 'Thank you for your funding application',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <h2 style="color: #37008F;">Thank You for Your Application!</h2>
           <p>Dear ${formData.owner1Name || 'Valued Client'},</p>
-          <p>We have received your funding application for <strong>${formData.legalName}</strong> and appreciate your interest in Ridge Crest Financial Group.</p>
+          <p>We have received your funding application for <strong>${formData.legalName}</strong> and appreciate your interest in Ridgecrest Financial Group.</p>
 
           <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #333; margin-top: 0;">Application Summary</h3>
@@ -280,7 +280,7 @@ export async function POST(request: NextRequest) {
           </p>
           <br>
           <p>Best regards,</p>
-          <p><strong>Ridge Crest Financial Group</strong></p>
+          <p><strong>Ridgecrest Financial Group</strong></p>
           <p style="color: #666; font-size: 14px;">Your Partner in Business Growth</p>
         </div>
       `,

@@ -15,7 +15,7 @@ This application uses [Resend](https://resend.com) to send email notifications w
 1. Log in to your Resend dashboard
 2. Go to [API Keys](https://resend.com/api-keys)
 3. Click "Create API Key"
-4. Give it a name (e.g., "Ridge Crest Applications")
+4. Give it a name (e.g., "Ridgecrest Applications")
 5. Copy the API key (it starts with `re_`)
 
 ### 3. Configure Environment Variables
@@ -49,11 +49,11 @@ Once verified, update the API route to use your domain:
 
 In `app/api/submit-application/route.ts`, change:
 ```typescript
-from: "Ridge Crest Applications <onboarding@resend.dev>",
+from: "Ridgecrest Applications <onboarding@resend.dev>",
 ```
 to:
 ```typescript
-from: "Ridge Crest Applications <applications@ridgecrestfg.com>",
+from: "Ridgecrest Applications <applications@ridgecrestfg.com>",
 ```
 
 ### 5. Test the Integration
@@ -89,7 +89,7 @@ Every application submission automatically generates a professionally formatted 
 - Financial information with existing advances breakdown
 - Landlord/Mortgage information
 - Certification statement
-- Branded header and footer with Ridge Crest Financial Group styling
+- Branded header and footer with Ridgecrest Financial Group styling
 
 The PDF is automatically attached to the email with a filename format:
 `Application-{BusinessName}_{timestamp}.pdf`

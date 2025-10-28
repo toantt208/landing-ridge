@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Thank You - RidgeCrest Financial Group',
-  description: 'Thank you for choosing Ridge Crest Financial Group! Your application is being reviewed and one of our agents will contact you shortly.',
+  description: 'Thank you for choosing Ridgecrest Financial Group! Your application is being reviewed and one of our agents will contact you shortly.',
   robots: 'index, follow',
 }
 
@@ -15,7 +15,7 @@ export default function ThankYou() {
         <div className="app-header__container">
           <Link href="/">
             <div className="app-header__logo">
-              <Image src="/images/logo.svg" width={219} height={40} alt="Ridge Crest Financial Group" />
+              <Image src="/images/logo.svg" width={219} height={40} alt="Ridgecrest Financial Group" />
             </div>
           </Link>
         </div>
@@ -29,7 +29,7 @@ export default function ThankYou() {
                 <div className="titleWrapper">
                   <h1 className="thankYouTitle">Thank You</h1>
                   <p className="thankYouDesc">
-                    for choosing Ridge Crest Financial Group! <br />
+                    for choosing Ridgecrest Financial Group! <br />
                     Your application is being reviewed and one of our agents will contact you shortly.
                   </p>
                 </div>

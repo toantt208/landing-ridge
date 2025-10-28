@@ -5,8 +5,8 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'About Us - Ridge Crest Financial Group',
-  description: 'Learn about Ridge Crest Financial Group, our mission to help small and medium-sized businesses with customized financing solutions, and our core values of transparency, integrity, and service excellence.',
+  title: 'About Us - Ridgecrest Financial Group',
+  description: 'Learn about Ridgecrest Financial Group, our mission to help small and medium-sized businesses with customized financing solutions, and our core values of transparency, integrity, and service excellence.',
 }
 
 export default function AboutUs() {
@@ -33,7 +33,7 @@ export default function AboutUs() {
               <div className="section-title left">
                 <h2 className="heading">Who <span>We Are</span></h2>
               </div>
-              <p>Our mantra is in our name. At Ridge Crest Financial Group, we aim to help small and medium-sized businesses extend their frontier potential.</p>
+              <p>Our mantra is in our name. At Ridgecrest Financial Group, we aim to help small and medium-sized businesses extend their frontier potential.</p>
               <p>The team at RCFG believes in the power of exploration and the spirit of moving forward through uncharted territory. We envision a new era of business financing where your entrepreneurial journey is supported by a trusted partner with decades of experience.</p>
               <p>By offering exclusive and customized financing options, we help you capitalize on opportunities and confidently navigate the path to success. Our dedicated team is here to support you every step of the way, ensuring you have the resources and guidance to achieve your business goals.</p>
             </div>
@@ -45,7 +45,7 @@ export default function AboutUs() {
             <div className="section-title">
               <h2 className="title">Our <span>Mission</span></h2>
             </div>
-            <p>Our mission is to elevate your business potential and provide an excellent experience through premium financial solutions tailored to your unique needs. We strive to be more than just a lender; we are your ally in achieving your greatest potential. At Ridge Crest Financial Group, we are committed to being your financial partner, providing the tools and advice you need to build a successful business.</p>
+            <p>Our mission is to elevate your business potential and provide an excellent experience through premium financial solutions tailored to your unique needs. We strive to be more than just a lender; we are your ally in achieving your greatest potential. At Ridgecrest Financial Group, we are committed to being your financial partner, providing the tools and advice you need to build a successful business.</p>
           </div>
         </div>
       </section>
@@ -94,7 +94,7 @@ export default function AboutUs() {
         <div className="auto-container">
           <div className="section-title">
             <h2 className="title">Our <span>Values</span></h2>
-            <p>Our core values are the foundation of Ridge Crest Financial Group,<br />
+            <p>Our core values are the foundation of Ridgecrest Financial Group,<br />
               guiding every decision and interaction we have with our customers.</p>
           </div>
           <div className="business-decisions__container">
@@ -121,7 +121,7 @@ export default function AboutUs() {
         <div className="auto-container">
           <div className="get-funding-container">
             <h3 className="title">Get the Funding <span>You Need</span></h3>
-            <p>Join those who have elevated their business potential with Ridge Crest Financial Group. Experience the difference with our exclusive and customized financing options. Let&apos;s explore the future of your business together.</p>
+            <p>Join those who have elevated their business potential with Ridgecrest Financial Group. Experience the difference with our exclusive and customized financing options. Let&apos;s explore the future of your business together.</p>
             <Link href="/application" className="btn">Get Started Today</Link>
           </div>
         </div>

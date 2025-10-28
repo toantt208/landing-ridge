@@ -223,6 +223,7 @@ export async function POST(request: NextRequest) {
       </div>
     `
 
+    console.log(1111, adminEmail)
     // Send email to admin with PDF attachment
     await resend.emails.send({
       from: 'Ridge Crest Funding Application <onboarding@resend.dev>',

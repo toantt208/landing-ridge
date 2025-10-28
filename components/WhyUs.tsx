@@ -35,7 +35,7 @@ export default function WhyUs() {
         </div>
         <div className="solution_container">
           <div className="solution_content content_1">
-            <h3 className="title">Term Loans</h3>
+            <h3 className="title" style={{ color: "white"}}>Term Loans</h3>
             <p>Get cash now with the option to apply for more later.</p>
             <ul>
               <li>Loans from $5k - $7M</li>
@@ -44,7 +44,7 @@ export default function WhyUs() {
             <Link href="/application" className="btn">Apply Now</Link>
           </div>
           <div className="solution_content content_2">
-            <h3 className="title">Line of Credit</h3>
+            <h3 className="title" style={{ color: "white"}}>Line of Credit</h3>
             <p>A revolving line of credit with fast access to funds.</p>
             <ul>
               <li>Credit limits from $6k - $1.5M</li>
@@ -53,7 +53,7 @@ export default function WhyUs() {
             <Link href="/application" className="btn">Apply Now</Link>
           </div>
           <div className="solution_content content_3">
-            <h3 className="title">Revenue Based Financing</h3>
+            <h3 className="title" style={{ color: "white"}}>Revenue Based Financing</h3>
             <p>With increased sales, repay quicker. Enjoy lower payments and more flexibility when sales drop.</p>
             <ul>
               <li>Up to $15M in working capital</li>

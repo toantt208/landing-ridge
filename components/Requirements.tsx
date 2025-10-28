@@ -3,7 +3,7 @@ export default function Requirements() {
     <section className="move-forward sec-padd">
       <div className="auto-container">
         <div className="section-title">
-          <h2 className="title">Requirements to Move Forward with RCFG</h2>
+          <h2 className="title">Requirements to Move Forward with RFG</h2>
         </div>
         <div className="move-forward__container">
           <div className="move-forward__content">

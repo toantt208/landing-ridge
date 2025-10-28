@@ -338,7 +338,6 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
       const result = await response.json()
 
       if (result.success) {
-        alert('Application submitted successfully! A PDF copy has been sent to your email.')
         // Redirect to thank you page
         window.location.href = '/thank-you'
       } else {

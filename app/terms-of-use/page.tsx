@@ -5,13 +5,13 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Terms of Use - RidgeCrest Financial Group',
-  description: 'These Terms of Use shall become effective as of July 1, 2024. This is a legal agreement between you and Ridgecrest Financial LLC, a Delaware corporation ("Ridgecrest"), which may be contacted at 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131.',
+  description: 'These Terms of Use shall become effective as of July 1, 2024. This is a legal agreement between you and Ridgecrest Financial Group LLC, a Delaware corporation ("Ridgecrest"), which may be contacted at 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131.',
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   openGraph: {
     locale: 'en_US',
     type: 'article',
     title: 'Terms of Use - ridgecrestfg',
-    description: 'These Terms of Use shall become effective as of July 1, 2024. This is a legal agreement between you and Ridgecrest Financial LLC, a Delaware corporation ("Ridgecrest"), which may be contacted at 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131.',
+    description: 'These Terms of Use shall become effective as of July 1, 2024. This is a legal agreement between you and Ridgecrest Financial Group LLC, a Delaware corporation ("Ridgecrest"), which may be contacted at 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131.',
     url: 'https://ridgecrestfg.com/terms-of-use/',
     siteName: 'ridgecrestfg',
   },
@@ -49,7 +49,7 @@ export default function TermsOfUse() {
               <p>These Terms of Use shall become effective as of July 1, 2024.</p>
               <p><strong>Introduction</strong></p>
               <p>
-                This is a legal agreement between you and Ridgecrest Financial LLC, a Delaware corporation (&quot;Ridgecrest&quot;),
+                This is a legal agreement between you and Ridgecrest Financial Group LLC, a Delaware corporation (&quot;Ridgecrest&quot;),
                 which may be contacted at 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131. By accessing this
                 website, and any sub-sites of this website (together the &quot;Site&quot;), and/or using any of the Services (as
                 defined below) accessible though the Site, you become a user and agree to, and are bound by, the terms and
@@ -64,7 +64,7 @@ export default function TermsOfUse() {
                 agree to the changes. Please see the beginning of the Terms to determine when the Terms were last revised.
               </p>
               <p>As used in these Terms, the following words shall have the following meanings. &quot;Ridgecrest&quot; includes
-                &quot;Ridgecrest Financial LLC&quot;, &quot;Ridgecrest&quot;, &quot;we&quot;, &quot;us&quot; and variations such as &quot;our&quot;. &quot;Service&quot; includes the
+                &quot;Ridgecrest Financial Group LLC&quot;, &quot;Ridgecrest&quot;, &quot;we&quot;, &quot;us&quot; and variations such as &quot;our&quot;. &quot;Service&quot; includes the
                 products, services and software that you order, receive or access as part of your use of Ridgecrest&apos;s Sites.
               </p>
               <p><strong>THESE TERMS STATE THAT ANY DISPUTES BETWEEN YOU AND RIDGECREST MUST BE RESOLVED IN BINDING
@@ -291,7 +291,7 @@ export default function TermsOfUse() {
                 online at www.adr.org, by calling the AAA at 1-800-778-7879.<br />
                 d. Notice and Process. A party who intends to seek arbitration must first send to the other, by certified
                 mail, a written Notice of Dispute (&quot;Notice&quot;). The Notice to Ridgecrest should be addressed to: Ridgecrest
-                Financial LLC, 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131 (&quot;Notice Address&quot;). The Notice must
+                Financial Group LLC, 1200 Brickell Avenue, Suite 1950 #1006, Miami, FL 33131 (&quot;Notice Address&quot;). The Notice must
                 (a) describe the nature and basis of the claim or dispute; and (b) set forth the specific relief sought
                 (&quot;Demand&quot;). If you and Ridgecrest do not reach an agreement to
                 resolve the claim within 30 days after the Notice is received, you or Ridgecrest may commence an arbitration

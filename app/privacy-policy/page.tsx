@@ -5,13 +5,13 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - RidgeCrest Financial Group',
-  description: 'This Privacy Policy shall be effective as of July 1, 2024. This website is owned and operated by Ridgecrest Financial LLC ("Ridgecrest"). We at Ridgecrest respect and protect the privacy of visitors to our websites, and the privacy of our customers.',
+  description: 'This Privacy Policy shall be effective as of July 1, 2024. This website is owned and operated by Ridgecrest Financial Group LLC ("Ridgecrest"). We at Ridgecrest respect and protect the privacy of visitors to our websites, and the privacy of our customers.',
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   openGraph: {
     locale: 'en_US',
     type: 'article',
     title: 'Privacy Policy - ridgecrestfg',
-    description: 'This Privacy Policy shall be effective as of July 1, 2024. This website is owned and operated by Ridgecrest Financial LLC ("Ridgecrest"). We at Ridgecrest respect and protect the privacy of visitors to our websites, and the privacy of our customers.',
+    description: 'This Privacy Policy shall be effective as of July 1, 2024. This website is owned and operated by Ridgecrest Financial Group LLC ("Ridgecrest"). We at Ridgecrest respect and protect the privacy of visitors to our websites, and the privacy of our customers.',
     url: 'https://ridgecrestfg.com/privacy-policy/',
     siteName: 'ridgecrestfg',
   },
@@ -48,7 +48,7 @@ export default function PrivacyPolicy() {
             <div className="terms-container">
               <p>This Privacy Policy shall be effective as of July 1, 2024.</p>
               <p>
-                This website is owned and operated by Ridgecrest Financial LLC (&quot;Ridgecrest&quot;). We at Ridgecrest respect and
+                This website is owned and operated by Ridgecrest Financial Group LLC (&quot;Ridgecrest&quot;). We at Ridgecrest respect and
                 protect the privacy of visitors to our websites, and the privacy of our customers. We respect and value the
                 privacy of our clients and have developed this Privacy Policy to demonstrate our commitment to protecting
                 your privacy. Except where otherwise noted, this Privacy Policy applies to and describes our information

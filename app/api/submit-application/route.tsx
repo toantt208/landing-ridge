@@ -153,77 +153,394 @@ export async function POST(request: NextRequest) {
     // Prepare admin email content with attachments section
     const adminHtmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #37008F; border-bottom: 3px solid #37008F; padding-bottom: 10px;">New Funding Application Submitted</h2>
+        <h2 style="color: #37008F; border-bottom: 3px solid #37008F; padding-bottom: 10px; margin-bottom: 20px;">New Funding Application Submitted</h2>
 
-        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #333; margin-top: 0;">Applicant Information</h3>
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #666;">Business Name:</td>
-              <td style="padding: 8px 0;">${formData.legalName}</td>
-            </tr>
-            ${formData.dbaName ? `
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #666;">DBA Name:</td>
-              <td style="padding: 8px 0;">${formData.dbaName}</td>
-            </tr>
-            ` : ''}
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td>
-              <td style="padding: 8px 0;"><a href="mailto:${formData.email}" style="color: #37008F;">${formData.email}</a></td>
-            </tr>
-            ${formData.phone ? `
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td>
-              <td style="padding: 8px 0;"><a href="tel:${formData.phone}" style="color: #37008F;">${formData.phone}</a></td>
-            </tr>
-            ` : ''}
-            ${formData.fundingAmount ? `
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #666;">Funding Amount:</td>
-              <td style="padding: 8px 0;">${formData.fundingAmount}</td>
-            </tr>
-            ` : ''}
-          </table>
-        </div>
+        <table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
+          <tr>
+            <td>
+              <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
+                <!-- Business Information Section -->
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Business Legal Name</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.legalName || 'N/A'}</font></td>
+                </tr>
+
+                ${formData.dbaName ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>DBA Name</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.dbaName}</font></td>
+                </tr>
+                ` : ''}
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Business Address</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.businessAddress || 'N/A'}<br>${formData.businessCity || ''}, ${formData.businessState || ''} ${formData.businessZip || ''}</font></td>
+                </tr>
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Email</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px"><a href="mailto:${formData.email}" style="color: #37008F;">${formData.email}</a></font></td>
+                </tr>
+
+                ${formData.phone ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Phone</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px"><a href="tel:${formData.phone}" style="color: #37008F;">${formData.phone}</a></font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.mobile ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Mobile</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.mobile}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.productService ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Product/Service</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.productService}</font></td>
+                </tr>
+                ` : ''}
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Partnership Type</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.partnership || 'N/A'}</font></td>
+                </tr>
+
+                ${formData.businessType ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Business Type</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.businessType}</font></td>
+                </tr>
+                ` : ''}
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Date Business Started</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.dateStarted || 'N/A'}</font></td>
+                </tr>
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>EIN</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.ein || 'N/A'}</font></td>
+                </tr>
+
+                <!-- Owner 1 Information -->
+                ${formData.owner1Name ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:13px"><strong>━━━ OWNER #1 INFORMATION ━━━</strong></font></td>
+                </tr>
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Name</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Name}</font></td>
+                </tr>
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Address</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Address || 'N/A'}<br>${formData.owner1City || ''}, ${formData.owner1State || ''} ${formData.owner1Zip || ''}</font></td>
+                </tr>
+
+                ${formData.owner1Phone ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Phone</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Phone}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner1Email ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Email</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px"><a href="mailto:${formData.owner1Email}" style="color: #37008F;">${formData.owner1Email}</a></font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner1Ownership ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>% of Ownership</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Ownership}%</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner1Dob ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Date of Birth</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Dob}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner1Ssn ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>SSN</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Ssn}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner1Credit ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Credit Score</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Credit}</font></td>
+                </tr>
+                ` : ''}
+
+                ${owner1Signature ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Owner #1 Signature</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px"><img src="${owner1Signature}" width="150" alt="Owner 1 Signature" /></font></td>
+                </tr>
+                ` : ''}
+                ` : ''}
+
+                <!-- Owner 2 Information -->
+                ${formData.owner2Name ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:13px"><strong>━━━ OWNER #2 INFORMATION ━━━</strong></font></td>
+                </tr>
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Name</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Name}</font></td>
+                </tr>
+
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Address</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Address || 'N/A'}<br>${formData.owner2City || ''}, ${formData.owner2State || ''} ${formData.owner2Zip || ''}</font></td>
+                </tr>
+
+                ${formData.owner2Phone ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Phone</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Phone}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner2Email ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Email</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px"><a href="mailto:${formData.owner2Email}" style="color: #37008F;">${formData.owner2Email}</a></font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner2Ownership ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>% of Ownership</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Ownership}%</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner2Dob ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Date of Birth</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Dob}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner2Ssn ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>SSN</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Ssn}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.owner2Credit ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Credit Score</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Credit}</font></td>
+                </tr>
+                ` : ''}
+
+                ${owner2Signature ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Owner #2 Signature</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px"><img src="${owner2Signature}" width="150" alt="Owner 2 Signature" /></font></td>
+                </tr>
+                ` : ''}
+                ` : ''}
+
+                <!-- Financial Information -->
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:13px"><strong>━━━ FINANCIAL INFORMATION ━━━</strong></font></td>
+                </tr>
+
+                ${formData.fundingAmount ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Funding Amount Requested</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.fundingAmount}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.purposeOfFunds ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Purpose of Funds</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.purposeOfFunds}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.existingAdvances ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Existing Advances</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.existingAdvances}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.rentMortgageAmount ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Rent/Mortgage Amount</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.rentMortgageAmount}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.landlordContact ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Landlord Contact</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.landlordContact}</font></td>
+                </tr>
+                ` : ''}
+
+                ${formData.landlordNumber ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Landlord Phone</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.landlordNumber}</font></td>
+                </tr>
+                ` : ''}
+
+              </table>
+            </td>
+          </tr>
+        </table>
 
         ${attachments && attachments.length > 0 ? `
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #333; margin-top: 0;">Uploaded Documents (${attachments.length})</h3>
+          <h3 style="color: #333; margin-top: 0;">📎 Uploaded Documents (${attachments.length})</h3>
           <div style="margin-top: 15px;">
             ${attachments.map((file: { url: any; filename: any; size: number }) => `
               <div style="background-color: #fff; padding: 12px; border-radius: 4px; margin-bottom: 10px; border: 1px solid #ddd;">
-                <a href="${file.url}" target="_blank" rel="noopener noreferrer" style="color: #37008F; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                  <span style="font-weight: bold; background-color: #37008F; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">
-                    📎
-                  </span>
-                  <div>
-                    <div style="font-weight: 500; color: #37008F;">${file.filename}</div>
-                    <div style="font-size: 12px; color: #666;">${formatFileSize(file.size)}</div>
-                  </div>
+                <a href="${file.url}" target="_blank" rel="noopener noreferrer" style="color: #37008F; text-decoration: none;">
+                  <strong>${file.filename}</strong> (${formatFileSize(file.size)})
                 </a>
               </div>
             `).join('')}
           </div>
-          <p style="color: #666; font-size: 12px; margin-top: 15px; margin-bottom: 0;">
-            Click on any file to open and download it.
-          </p>
         </div>
         ` : ''}
 
         <div style="background-color: #fff; padding: 20px; border: 2px solid #37008F; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #37008F; margin-top: 0;">📄 Complete Application</h3>
-          <p style="margin-bottom: 15px;">A detailed PDF of this application is attached to this email.</p>
+          <h3 style="color: #37008F; margin-top: 0;">📄 Complete Application PDF</h3>
+          <p style="margin-bottom: 0;">A detailed PDF of this application is attached to this email.</p>
         </div>
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #999; font-size: 12px;">
-          <p>This application was submitted from the RidgeCrest Financial Group funding form.</p>
+          <p>This application was submitted from the Ridgecrest Financial Group funding form.</p>
           <p>Submitted on: ${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'long' })}</p>
         </div>
       </div>
     `
 
-    console.log(1111, adminEmail)
     // Send email to admin with PDF attachment
     await resend.emails.send({
       from: 'Ridgecrest Funding Application <onboarding@resend.dev>',
@@ -239,58 +556,374 @@ export async function POST(request: NextRequest) {
       ],
     })
 
-    // Send confirmation email to applicant with PDF and uploaded files
-    await resend.emails.send({
-      from: 'Ridgecrest Financial Group <onboarding@resend.dev>',
-      to: formData.email,
-      subject: 'Thank you for your funding application',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #37008F;">Thank You for Your Application!</h2>
-          <p>Dear ${formData.owner1Name || 'Valued Client'},</p>
-          <p>We have received your funding application for <strong>${formData.legalName}</strong> and appreciate your interest in Ridgecrest Financial Group.</p>
-
-          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #333; margin-top: 0;">Application Summary</h3>
-            <p><strong>Business Name:</strong> ${formData.legalName}</p>
-            ${formData.fundingAmount ? `<p><strong>Requested Amount:</strong> ${formData.fundingAmount}</p>` : ''}
-            ${attachments && attachments.length > 0 ? `
-              <p><strong>Documents Submitted:</strong> ${attachments.length} file(s)</p>
-              <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                ${attachments.map((file: { url: any; filename: any; size: number }) => `
-                  <li style="padding: 8px 0; border-bottom: 1px solid #ddd;">
-                    <a href="${file.url}" target="_blank" rel="noopener noreferrer" style="color: #37008F; text-decoration: none;">
-                      📎 ${file.filename} (${formatFileSize(file.size)})
-                    </a>
-                  </li>
-                `).join('')}
-              </ul>
-            ` : ''}
-          </div>
-
-          <h3 style="color: #333;">What's Next?</h3>
-          <p>Our team will review your application and contact you within 1-2 business days to discuss the next steps. We may request additional information to complete the underwriting process.</p>
-
-          <p>A copy of your completed application is attached to this email for your records.</p>
-
-          <p>If you have any urgent questions, please feel free to contact us directly:</p>
-          <p>
-            <strong>Email:</strong> <a href="mailto:admin@ridgecrestfg.com" style="color: #37008F;">admin@ridgecrestfg.com</a><br>
-            <strong>Phone:</strong> <a href="tel:1-800-546-2190" style="color: #37008F;">1-800-546-2190</a>
-          </p>
-          <br>
-          <p>Best regards,</p>
-          <p><strong>Ridgecrest Financial Group</strong></p>
-          <p style="color: #666; font-size: 14px;">Your Partner in Business Growth</p>
-        </div>
-      `,
-      attachments: [
-        {
-          filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${timestamp}.pdf`,
-          content: pdfBuffer,
-        },
-      ],
-    })
+    // // Send confirmation email to applicant with PDF and uploaded files
+    // await resend.emails.send({
+    //   from: 'Ridgecrest Financial Group <onboarding@resend.dev>',
+    //   to: formData.email,
+    //   subject: 'Thank you for your funding application',
+    //   html: `
+    //     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+    //       <h2 style="color: #37008F;">Thank You for Your Application!</h2>
+    //       <p>Dear ${formData.owner1Name || 'Valued Client'},</p>
+    //       <p>We have received your funding application for <strong>${formData.legalName}</strong> and appreciate your interest in Ridgecrest Financial Group.</p>
+    //
+    //       <h3 style="color: #37008F; margin-top: 30px; margin-bottom: 15px;">Your Application Details</h3>
+    //
+    //       <table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
+    //         <tr>
+    //           <td>
+    //             <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
+    //               <!-- Business Information -->
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Business Legal Name</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.legalName || 'N/A'}</font></td>
+    //               </tr>
+    //
+    //               ${formData.dbaName ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>DBA Name</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.dbaName}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Address</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.businessAddress || 'N/A'}<br>${formData.businessCity || ''}, ${formData.businessState || ''} ${formData.businessZip || ''}</font></td>
+    //               </tr>
+    //
+    //               ${formData.email ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Email</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.email}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.phone ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Phone</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.phone}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.mobile ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Mobile</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.mobile}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.productService ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Product/Service</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.productService}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Partnership</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.partnership || 'N/A'}</font></td>
+    //               </tr>
+    //
+    //               ${formData.businessType ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Other</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.businessType}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Date Business Started</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.dateStarted || 'N/A'}</font></td>
+    //               </tr>
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>EIN</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.ein || 'N/A'}</font></td>
+    //               </tr>
+    //
+    //               <!-- Owner 1 Information -->
+    //               ${formData.owner1Name ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Name</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Name}</font></td>
+    //               </tr>
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Address</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Address || 'N/A'}</font></td>
+    //               </tr>
+    //
+    //               ${formData.owner1City ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>City</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1City}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner1State ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>State</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1State}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner1Zip ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Zip</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Zip}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner1Ownership ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>% of Ownership</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Ownership}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner1Dob ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Date of Birth</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Dob}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner1Ssn ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>SSN#</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Ssn}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${owner1Signature ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Owner/Principle Signature</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px"><img src="${owner1Signature}" width="150" alt="Signature" /></font></td>
+    //               </tr>
+    //               ` : ''}
+    //               ` : ''}
+    //
+    //               <!-- Owner 2 Information -->
+    //               ${formData.owner2Name ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Name</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Name}</font></td>
+    //               </tr>
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Address</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Address || 'N/A'}</font></td>
+    //               </tr>
+    //
+    //               ${formData.owner2City ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>City</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2City}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner2State ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>State</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2State}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner2Zip ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Zip</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Zip}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner2Ownership ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>% of Ownership</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Ownership}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner2Dob ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Date of Birth</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Dob}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${formData.owner2Ssn ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>SSN#</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Ssn}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               ${owner2Signature ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Owner/Principle Signature</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px"><img src="${owner2Signature}" width="150" alt="Signature" /></font></td>
+    //               </tr>
+    //               ` : ''}
+    //               ` : ''}
+    //
+    //               <!-- Funding Information -->
+    //               ${formData.fundingAmount ? `
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Funding Amount Requested</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${formData.fundingAmount}</font></td>
+    //               </tr>
+    //               ` : ''}
+    //
+    //               <tr bgcolor="#EAF2FA">
+    //                 <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Submitted On</strong></font></td>
+    //               </tr>
+    //               <tr bgcolor="#FFFFFF">
+    //                 <td width="20">&nbsp;</td>
+    //                 <td><font style="font-family:sans-serif;font-size:12px">${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}</font></td>
+    //               </tr>
+    //             </table>
+    //           </td>
+    //         </tr>
+    //       </table>
+    //
+    //       ${attachments && attachments.length > 0 ? `
+    //       <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+    //         <h3 style="color: #333; margin-top: 0; margin-bottom: 10px;">📎 Documents Submitted (${attachments.length})</h3>
+    //         ${attachments.map((file: { url: any; filename: any; size: number }) => `
+    //           <div style="background-color: #fff; padding: 10px; border-radius: 4px; margin-bottom: 8px; border: 1px solid #ddd;">
+    //             <a href="${file.url}" target="_blank" rel="noopener noreferrer" style="color: #37008F; text-decoration: none;">
+    //               <strong>${file.filename}</strong> <span style="color: #666; font-size: 11px;">(${formatFileSize(file.size)})</span>
+    //             </a>
+    //           </div>
+    //         `).join('')}
+    //       </div>
+    //       ` : ''}
+    //
+    //       <h3 style="color: #37008F; margin-top: 30px;">What's Next?</h3>
+    //       <p>Our team will review your application and contact you within 1-2 business days to discuss the next steps. We may request additional information to complete the underwriting process.</p>
+    //
+    //       <div style="background-color: #fff; padding: 15px; border: 2px solid #37008F; border-radius: 8px; margin: 20px 0;">
+    //         <p style="margin: 0; color: #37008F;"><strong>📄 Your Application PDF</strong></p>
+    //         <p style="margin: 10px 0 0 0; font-size: 13px;">A copy of your completed application is attached to this email for your records.</p>
+    //       </div>
+    //
+    //       <h3 style="color: #333; margin-top: 30px;">Need Assistance?</h3>
+    //       <p>If you have any urgent questions, please feel free to contact us directly:</p>
+    //
+    //       <table width="100%" border="0" cellpadding="5" cellspacing="0" style="margin: 15px 0;">
+    //         <tr>
+    //           <td style="padding: 8px 0;"><font style="font-family:sans-serif;font-size:13px"><strong>Email:</strong></font></td>
+    //           <td style="padding: 8px 0;"><font style="font-family:sans-serif;font-size:13px"><a href="mailto:admin@ridgecrestfg.com" style="color: #37008F; text-decoration: none;">admin@ridgecrestfg.com</a></font></td>
+    //         </tr>
+    //         <tr>
+    //           <td style="padding: 8px 0;"><font style="font-family:sans-serif;font-size:13px"><strong>Phone:</strong></font></td>
+    //           <td style="padding: 8px 0;"><font style="font-family:sans-serif;font-size:13px"><a href="tel:1-800-546-2190" style="color: #37008F; text-decoration: none;">1-800-546-2190</a></font></td>
+    //         </tr>
+    //       </table>
+    //
+    //       <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+    //         <p style="margin: 5px 0;">Best regards,</p>
+    //         <p style="margin: 5px 0;"><strong>Ridgecrest Financial Group</strong></p>
+    //         <p style="margin: 5px 0; color: #666; font-size: 14px;">Your Partner in Business Growth</p>
+    //       </div>
+    //     </div>
+    //   `,
+    //   attachments: [
+    //     {
+    //       filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${timestamp}.pdf`,
+    //       content: pdfBuffer,
+    //     },
+    //   ],
+    // })
 
     return NextResponse.json(
       {

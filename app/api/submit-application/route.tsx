@@ -543,7 +543,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to admin with PDF attachment
     await resend.emails.send({
-      from: 'Ridgecrest Funding Application <onboarding@resend.dev>',
+      from: 'Ridgecrest Funding Application <noreply@ridgecrestfg.com>',
       to: adminEmail,
       replyTo: formData.email,
       subject: `New Funding Application from ${formData.legalName}`,

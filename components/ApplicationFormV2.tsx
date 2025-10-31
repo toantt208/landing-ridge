@@ -23,10 +23,10 @@ interface FormData {
   businessCity: string
   businessState: string
   businessZip: string
-  email: string
-  phone: string
-  mobile: string
-  productService: string
+  email?: string
+  phone?: string
+  mobile?: string
+  productService?: string
   partnership: string
   businessType: string
   dateStarted: string
@@ -36,8 +36,8 @@ interface FormData {
   owner1City: string
   owner1State: string
   owner1Zip: string
-  owner1Phone: string
-  owner1Email: string
+  owner1Phone?: string
+  owner1Email?: string
   owner1Ownership: string
   owner1Dob: string
   owner1Ssn: string
@@ -79,7 +79,7 @@ interface ApplicationFormProps {
   defaultValues?: Partial<FormData>
 }
 
-export default function ApplicationForm({ defaultValues }: ApplicationFormProps = {}) {
+export default function ApplicationFormV2({ defaultValues }: ApplicationFormProps = {}) {
   const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<FormData>({
     defaultValues: defaultValues || {}
   })
@@ -510,14 +510,14 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
 
             <div className="gfield gfield--type-email gfield--width-half gfield--has-description">
               <label className="gfield_label gform-field-label" htmlFor="email">
-                Email <span className="gfield_required gfield_required_text">(Required)</span>
+                Email
               </label>
               <div className="ginput_container ginput_container_email">
                 <input
                   type="email"
                   id="email"
-                  className={errors.email ? "large inputError" : "large"}
-                  {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+                  className="large"
+                  {...register('email', { pattern: /^\S+@\S+$/i })}
                 />
               </div>
               <div className="gfield_description" id="gfield_description_email">example@example.com</div>
@@ -526,60 +526,57 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
 
             <div className="gfield gfield--type-phone gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="phone">
-                Phone <span className="gfield_required gfield_required_text">(Required)</span>
+                Phone
               </label>
               <div className="ginput_container ginput_container_phone">
                 <InputMask
                   mask="(999) 999-9999"
-                  {...register('phone', { required: true })}
+                  {...register('phone')}
                 >
                   {(inputProps: any) => (
                     <input
                       {...inputProps}
                       type="tel"
                       id="phone"
-                      className={errors.phone ? "large inputError" : "large"}
+                      className="large"
                     />
                   )}
                 </InputMask>
-                {errors.phone && <span className="gfield_description validation_message">This field is required</span>}
               </div>
             </div>
 
             <div className="gfield gfield--type-phone gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="mobile">
-                Mobile <span className="gfield_required gfield_required_text">(Required)</span>
+                Mobile
               </label>
               <div className="ginput_container ginput_container_phone">
                 <InputMask
                   mask="(999) 999-9999"
-                  {...register('mobile', { required: true })}
+                  {...register('mobile')}
                 >
                   {(inputProps: any) => (
                     <input
                       {...inputProps}
                       type="tel"
                       id="mobile"
-                      className={errors.mobile ? "large inputError" : "large"}
+                      className="large"
                     />
                   )}
                 </InputMask>
-                {errors.mobile && <span className="gfield_description validation_message">This field is required</span>}
               </div>
             </div>
 
             <div className="gfield gfield--type-text gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="productService">
-                Product / Service Sold <span className="gfield_required gfield_required_text">(Required)</span>
+                Product / Service Sold
               </label>
               <div className="ginput_container ginput_container_text">
                 <input
                   type="text"
                   id="productService"
-                  className={errors.productService ? "large inputError" : "large"}
-                  {...register('productService', { required: true })}
+                  className="large"
+                  {...register('productService')}
                 />
-                {errors.productService && <span className="gfield_description validation_message">This field is required</span>}
               </div>
             </div>
 
@@ -663,7 +660,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               <label className="gfield_label gform-field-label" htmlFor="dateStarted">
                 Date Business Started <span className="gfield_required gfield_required_text">(Required)</span>
               </label>
-              <div className="ginput_container ginput_container_date" style={{ display: 'flex', flexDirection: 'column', alignItems: "flex-start" }}>
+              <div className="ginput_container ginput_container_date" style={{ display: 'flex', flexDirection: "column", alignItems: 'flex-start'}}>
                 <Controller
                   name="dateStarted"
                   control={control}
@@ -784,40 +781,38 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
 
             <div className="gfield gfield--type-phone gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="owner1Phone">
-                Phone <span className="gfield_required gfield_required_text">(Required)</span>
+                Phone
               </label>
               <div className="ginput_container ginput_container_phone">
                 <InputMask
                   mask="(999) 999-9999"
-                  {...register('owner1Phone', { required: true })}
+                  {...register('owner1Phone')}
                 >
                   {(inputProps: any) => (
                     <input
                       {...inputProps}
                       type="tel"
                       id="owner1Phone"
-                      className={errors.owner1Phone ? "large inputError" : "large"}
+                      className="large"
                     />
                   )}
                 </InputMask>
-                {errors.owner1Phone && <span className="gfield_description validation_message">This field is required</span>}
               </div>
             </div>
 
             <div className="gfield gfield--type-email gfield--width-full gfield--has-description">
               <label className="gfield_label gform-field-label" htmlFor="owner1Email">
-                Email <span className="gfield_required gfield_required_text">(Required)</span>
+                Email
               </label>
               <div className="ginput_container ginput_container_email">
                 <input
                   type="email"
                   id="owner1Email"
-                  className={errors.owner1Email ? "large inputError" : "large"}
-                  {...register('owner1Email', { required: true, pattern: /^\S+@\S+$/i })}
+                  className="large"
+                  {...register('owner1Email')}
                 />
               </div>
               <div className="gfield_description" id="gfield_description_owner1Email">example@example.com</div>
-              {errors.owner1Email && <span className="gfield_description validation_message">Please enter a valid email</span>}
             </div>
 
             <div className="gfield gfield--type-text gfield--width-half">

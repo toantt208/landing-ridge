@@ -1454,3 +1454,20 @@ a {
 	display: flex;
 	align-items: center;
 }
+
+/* Validation error message styling */
+.validation_message,
+.gfield_description.validation_message {
+	color: var(--err-color)!important;
+	font-size: 14px;
+	line-height: 20px;
+	margin-top: 4px;
+}
+
+/* Input field error state border */
+.inputError,
+input.inputError,
+select.inputError,
+textarea.inputError {
+	border-color: var(--err-color) !important;
+}

@@ -94,7 +94,7 @@ a {
 	position: relative;
 	height: calc(100vh - 72px);
 	overflow-y: auto;
-	background: linear-gradient(rgba(255, 255, 255, .75), rgba(255, 255, 255, .8)), url(https://ridgecrestfg.com/wp-content/uploads/2025/01/application-bg.png);
+	background: linear-gradient(rgba(255, 255, 255, .75), rgba(255, 255, 255, .8)), url(https://ridgecrestfg.com/images/application-bg.png);
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;

@@ -674,7 +674,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
                       dateFormat="MM/dd/yyyy"
                       placeholderText="mm/dd/yyyy"
-                      className="large datepicker gform-datepicker mdy datepicker_with_icon"
+                      className={errors.dateStarted ? "large datepicker gform-datepicker mdy datepicker_with_icon inputError" : "large datepicker gform-datepicker mdy datepicker_with_icon"}
                       id="dateStarted"
                       showMonthDropdown
                       showYearDropdown
@@ -850,7 +850,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                       onChange={(date: Date | null) => field.onChange(formatDateForSubmit(date))}
                       dateFormat="MM/dd/yyyy"
                       placeholderText="mm/dd/yyyy"
-                      className="large datepicker gform-datepicker mdy"
+                      className={errors.owner1Dob ? "large datepicker gform-datepicker mdy inputError" : "large datepicker gform-datepicker mdy"}
                       id="owner1Dob"
                       maxDate={new Date()}
                       showMonthDropdown
@@ -1015,7 +1015,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               </div>
             </div>
 
-            <div className="gfield gfield--type-date gfield--input-type-datepicker gfield--datepicker-default-icon gfield--width-half">
+            <div className="gfield gfield--type-date gfield--input-type-datepicker  gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="owner2Dob">
                 Date of Birth
               </label>
@@ -1291,7 +1291,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               </div>
             </div>
 
-            <div className="gfield gfield--type-date gfield--input-type-datepicker gfield--datepicker-default-icon gfield--width-full">
+            <div className="gfield gfield--type-date gfield--input-type-datepicker  gfield--width-full">
               <label className="gfield_label gform-field-label" htmlFor="owner1Date">
                 Date
               </label>
@@ -1382,7 +1382,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               </div>
             </div>
 
-            <div className="gfield gfield--type-date gfield--input-type-datepicker gfield--datepicker-default-icon gfield--width-full">
+            <div className="gfield gfield--type-date gfield--input-type-datepicker  gfield--width-full">
               <label className="gfield_label gform-field-label" htmlFor="owner2Date">
                 Date
               </label>

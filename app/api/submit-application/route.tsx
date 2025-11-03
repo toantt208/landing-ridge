@@ -545,7 +545,6 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: 'Ridgecrest Funding Application <noreply@ridgecrestfg.com>',
       to: adminEmail,
-      replyTo: formData.email || 'testing@ridgecrestfg.com',
       subject: `New Funding Application from ${formData.legalName}`,
       html: adminHtmlContent,
       attachments: [

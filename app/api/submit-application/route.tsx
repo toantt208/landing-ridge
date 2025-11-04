@@ -109,17 +109,6 @@ export async function POST(request: NextRequest) {
     const owner2Signature = body.owner2Signature
     const attachments = body.attachments || [] as Attachment[]
 
-    // Validate required fields
-    if (!formData.legalName || !formData.email) {
-      return NextResponse.json(
-        {
-          message: 'Please fill in all required fields',
-          success: false
-        },
-        { status: 400 }
-      )
-    }
-
     // Prepare data for PDF template
     const pdfData = {
       ...formData,

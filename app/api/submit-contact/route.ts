@@ -69,43 +69,42 @@ export async function POST(request: NextRequest) {
 
     // Send email to admin
     await resend.emails.send({
-      from: 'Ridgecrest Contact Form <onboarding@resend.dev>',
+      from: 'Ridgecrest Contact Form <noreply@ridgecrestfg.com>',
       to: adminEmail,
-      replyTo: email,
       subject: subject ? `Contact Form: ${subject}` : `New Contact Form Submission from ${firstName} ${lastName}`,
       html: adminHtmlContent,
     })
 
     // Send confirmation email to user
-    await resend.emails.send({
-      from: 'Ridgecrest Financial Group <onboarding@resend.dev>',
-      to: email,
-      subject: 'Thank you for contacting Ridgecrest Financial Group',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #37008F;">Thank You for Reaching Out!</h2>
-          <p>Dear ${firstName},</p>
-          <p>We have received your message and appreciate you taking the time to contact us.</p>
-          <p>Our team will review your inquiry and get back to you as soon as possible, typically within 1-2 business days.</p>
-
-          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #333; margin-top: 0;">Your Message Summary</h3>
-            ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ''}
-            ${message ? `<p><strong>Message:</strong></p><p style="white-space: pre-wrap;">${message}</p>` : ''}
-          </div>
-
-          <p>If you have any urgent questions, please feel free to contact us directly:</p>
-          <p>
-            <strong>Email:</strong> <a href="mailto:admin@ridgecrestfg.com" style="color: #37008F;">admin@ridgecrestfg.com</a><br>
-            <strong>Phone:</strong> <a href="tel:1-800-546-2190" style="color: #37008F;">1-800-546-2190</a>
-          </p>
-          <br>
-          <p>Best regards,</p>
-          <p><strong>Ridgecrest Financial Group</strong></p>
-          <p style="color: #666; font-size: 14px;">Your Partner in Business Growth</p>
-        </div>
-      `,
-    })
+    // await resend.emails.send({
+    //   from: 'Ridgecrest Financial Group <onboarding@resend.dev>',
+    //   to: email,
+    //   subject: 'Thank you for contacting Ridgecrest Financial Group',
+    //   html: `
+    //     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+    //       <h2 style="color: #37008F;">Thank You for Reaching Out!</h2>
+    //       <p>Dear ${firstName},</p>
+    //       <p>We have received your message and appreciate you taking the time to contact us.</p>
+    //       <p>Our team will review your inquiry and get back to you as soon as possible, typically within 1-2 business days.</p>
+    //
+    //       <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+    //         <h3 style="color: #333; margin-top: 0;">Your Message Summary</h3>
+    //         ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ''}
+    //         ${message ? `<p><strong>Message:</strong></p><p style="white-space: pre-wrap;">${message}</p>` : ''}
+    //       </div>
+    //
+    //       <p>If you have any urgent questions, please feel free to contact us directly:</p>
+    //       <p>
+    //         <strong>Email:</strong> <a href="mailto:admin@ridgecrestfg.com" style="color: #37008F;">admin@ridgecrestfg.com</a><br>
+    //         <strong>Phone:</strong> <a href="tel:1-800-546-2190" style="color: #37008F;">1-800-546-2190</a>
+    //       </p>
+    //       <br>
+    //       <p>Best regards,</p>
+    //       <p><strong>Ridgecrest Financial Group</strong></p>
+    //       <p style="color: #666; font-size: 14px;">Your Partner in Business Growth</p>
+    //     </div>
+    //   `,
+    // })
 
     return NextResponse.json(
       {

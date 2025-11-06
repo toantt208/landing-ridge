@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sanityClient } from '@/lib/sanity'
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,52 +22,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get Sanity credentials from environment variables
-    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
-    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
-    const token = process.env.SANITY_API_TOKEN
+    // Convert file to buffer for Sanity client
+    const arrayBuffer = await file.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
 
-    if (!projectId || !dataset || !token) {
-      console.error('Missing Sanity credentials')
-      return NextResponse.json(
-        { error: 'Server configuration error' },
-        { status: 500 }
-      )
-    }
+    // Upload to Sanity using the client
+    const asset = await sanityClient.assets.upload('file', buffer, {
+      filename: file.name,
+      contentType: file.type,
+      preserveFilename: true,
 
-    // Create FormData for Sanity
-    const sanityFormData = new FormData()
-    sanityFormData.append('file', file)
-
-    // Upload to Sanity
-    const response = await fetch(
-      `https://${projectId}.api.sanity.io/v2024-01-01/assets/files/${dataset}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: sanityFormData,
-      }
-    )
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Sanity upload error:', errorText)
-      return NextResponse.json(
-        { error: 'Failed to upload file to Sanity' },
-        { status: response.status }
-      )
-    }
-
-    const data = await response.json()
+    })
 
     return NextResponse.json({
       success: true,
-      url: data.document.url,
+      url: asset.url,
       filename: file.name,
       size: file.size,
-      fileId: data.document._id,
+      fileId: asset._id,
     })
   } catch (error) {
     console.error('Error uploading file:', error)

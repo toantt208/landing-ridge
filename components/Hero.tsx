@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="auto-container">
         <div className="hero__inner">
           <div className="text-content">
-            <h1 className="title">
+            <h1 className="title" style={{ textAlign: 'left' }}>
               <span>Elevate </span>Your Business & Experience <span>Excellence</span>
             </h1>
             <p className="desciption">

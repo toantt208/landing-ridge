@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
     // Initialize Resend client
     const resend = new Resend(process.env.RESEND_API_KEY)
 
-    const adminEmail = process.env.NOTIFICATION_EMAIL || 'trazn05@gmail.com'
+    const adminEmail = process.env.NOTIFICATION_EMAIL || 'submissions@ridgecrestfg.com'
 
     // Prepare admin email content with attachments section
     const adminHtmlContent = `

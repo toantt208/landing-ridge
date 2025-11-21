@@ -41,6 +41,7 @@ interface FormData {
   owner1Ownership: string
   owner1Dob: string
   owner1Ssn: string
+  owner1Dl?: string
   owner1Credit?: string
   owner2Name?: string
   owner2Address?: string
@@ -52,6 +53,7 @@ interface FormData {
   owner2Ownership?: string
   owner2Dob?: string
   owner2Ssn?: string
+  owner2Dl?: string
   owner2Credit?: string
   fundingAmount?: string
   purposeOfFunds?: string
@@ -400,7 +402,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                 Address <span className="gfield_required gfield_required_text">(Required)</span>
               </label>
               <div className="ginput_container ginput_container_address">
-                <div style={{width: '100%', marginBottom: '16px'}}>
+                <div style={{ width: '100%', marginBottom: '16px' }}>
                   <input
                     type="text"
                     id="businessAddress"
@@ -410,8 +412,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                   <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessAddress">Street Address</label>
                 </div>
 
-                <div style={{display: 'flex', gap: '16px', marginBottom: '16px'}}>
-                  <div style={{flex: 1}}>
+                <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+                  <div style={{ flex: 1 }}>
                     <input
                       type="text"
                       id="businessCity"
@@ -421,7 +423,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                     <label className="gform-field-label gform-field-label--type-sub" htmlFor="businessCity">City</label>
                   </div>
 
-                  <div style={{flex: 1}}>
+                  <div style={{ flex: 1 }}>
                     <select
                       id="businessState"
                       className={errors.businessState ? "inputError" : ""}
@@ -492,7 +494,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                   </div>
                 </div>
 
-                <div style={{width: '50%'}}>
+                <div style={{ width: '50%' }}>
                   <input
                     type="text"
                     id="businessZip"
@@ -702,9 +704,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
             </div>
 
             {/* Owner #1 Section */}
-            <h2 style={{gridColumn: '1 / -1', marginTop: '20px', marginBottom: '10px', fontWeight: '900', fontSize: '1.5rem'}}>
+            <h2 style={{ gridColumn: '1 / -1', marginTop: '20px', marginBottom: '10px', fontWeight: '900', fontSize: '1.5rem' }}>
               OWNER/PRINCIPLE INFORMATION
-              <h3 style={{gridColumn: '1 / -1', fontWeight: '900', fontSize: '1.5rem'}}>OWNER #1</h3>
+              <h3 style={{ gridColumn: '1 / -1', fontWeight: '900', fontSize: '1.5rem' }}>OWNER #1</h3>
             </h2>
 
             <div className="gfield gfield--type-text gfield--width-full">
@@ -782,6 +784,20 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               </div>
             </div>
 
+            <div className="gfield gfield--type-text gfield--width-half">
+              <label className="gfield_label gform-field-label" htmlFor="owner1Dl">
+                DL#
+              </label>
+              <div className="ginput_container ginput_container_text">
+                <input
+                  type="text"
+                  id="owner1Dl"
+                  className="large"
+                  {...register('owner1Dl')}
+                />
+              </div>
+            </div>
+
             <div className="gfield gfield--type-phone gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="owner1Phone">
                 Phone <span className="gfield_required gfield_required_text">(Required)</span>
@@ -839,7 +855,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               <label className="gfield_label gform-field-label" htmlFor="owner1Dob">
                 Date of Birth <span className="gfield_required gfield_required_text">(Required)</span>
               </label>
-              <div className="ginput_container ginput_container_date" style={{ display: 'flex', flexDirection: "column", alignItems: 'flex-start'}}>
+              <div className="ginput_container ginput_container_date" style={{ display: 'flex', flexDirection: "column", alignItems: 'flex-start' }}>
                 <Controller
                   name="owner1Dob"
                   control={control}
@@ -893,7 +909,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
             </div>
 
             {/* Owner #2 Section (Optional) */}
-            <h3 style={{gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem'}}>OWNER #2 (IF APPLICABLE)</h3>
+            <h3 style={{ gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem' }}>OWNER #2 (IF APPLICABLE)</h3>
 
             <div className="gfield gfield--type-text gfield--width-full">
               <label className="gfield_label gform-field-label" htmlFor="owner2Name">
@@ -965,6 +981,20 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               </div>
             </div>
 
+            <div className="gfield gfield--type-text gfield--width-half">
+              <label className="gfield_label gform-field-label" htmlFor="owner2Dl">
+                DL#
+              </label>
+              <div className="ginput_container ginput_container_text">
+                <input
+                  type="text"
+                  id="owner2Dl"
+                  className="large"
+                  {...register('owner2Dl')}
+                />
+              </div>
+            </div>
+
             <div className="gfield gfield--type-phone gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="owner2Phone">
                 Phone
@@ -1019,7 +1049,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               <label className="gfield_label gform-field-label" htmlFor="owner2Dob">
                 Date of Birth
               </label>
-              <div className="ginput_container ginput_container_date" style={{ display: 'flex', flexDirection: "column", alignItems: 'flex-start'}}>
+              <div className="ginput_container ginput_container_date" style={{ display: 'flex', flexDirection: "column", alignItems: 'flex-start' }}>
                 <Controller
                   name="owner2Dob"
                   control={control}
@@ -1070,7 +1100,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
             </div>
 
             {/* Financial Information */}
-            <h2 style={{gridColumn: '1 / -1', marginTop: '20px',  fontWeight: '900', fontSize: '1.5rem'}}>FINANCIAL INFORMATION</h2>
+            <h2 style={{ gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem' }}>FINANCIAL INFORMATION</h2>
 
             <div className="gfield gfield--type-text gfield--width-half">
               <label className="gfield_label gform-field-label" htmlFor="fundingAmount">
@@ -1171,7 +1201,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
             </div>
 
             {/* Landlord/Mortgage Information */}
-            <h2 style={{gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem' }}>LANDLORD OR MORTGAGE INFORMATION</h2>
+            <h2 style={{ gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem' }}>LANDLORD OR MORTGAGE INFORMATION</h2>
 
             <div className="gfield gfield--type-text gfield--width-full">
               <label className="gfield_label gform-field-label" htmlFor="rentMortgageAmount">
@@ -1216,8 +1246,8 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
             </div>
 
             {/* Signature Section */}
-            <h2 style={{gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem'}}>Owner #1</h2>
-            <p className="authorization-text" style={{gridColumn: '1 / -1', marginBottom: '20px', fontSize: '15px', fontWeight: '400', lineHeight: '17px'}}>
+            <h2 style={{ gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem' }}>Owner #1</h2>
+            <p className="authorization-text" style={{ gridColumn: '1 / -1', marginBottom: '20px', fontSize: '15px', fontWeight: '400', lineHeight: '17px' }}>
               By signing below, the Merchant and its owners / principals: (1) certify that all
               information and documents submitted in connection with this Application is true,
               correct and complete; and (2) authorize recipient and its affiliates to receive
@@ -1317,7 +1347,7 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
               </div>
             </div>
 
-            <h2 style={{gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem'}}>Owner #2</h2>
+            <h2 style={{ gridColumn: '1 / -1', marginTop: '20px', fontWeight: '900', fontSize: '1.5rem' }}>Owner #2</h2>
 
             <div className="gfield gfield--type-Signature gfield--width-full">
               <label className="gfield_label gform-field-label" htmlFor="owner2Signature">
@@ -1432,9 +1462,9 @@ export default function ApplicationForm({ defaultValues }: ApplicationFormProps 
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  <div style={{ display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", fontSize: '16px', color: '#374151', marginBottom: '0' }}>
+                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontSize: '16px', color: '#374151', marginBottom: '0' }}>
                     <Image src="/images/upload-cloud.png" alt="Upload cloud icon" width={48} height={48} style={{ width: '48px', height: '48px' }} />
-                    <span style={{fontSize: '14px', fontWeight: 400, marginBottom: '10px'}}>Drop files here or{' '}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 400, marginBottom: '10px' }}>Drop files here or{' '}</span>
                     <button
                       type="button"
                       onClick={handleSelectFilesClick}

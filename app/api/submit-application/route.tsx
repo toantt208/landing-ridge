@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
     // Initialize Resend client
     const resend = new Resend(process.env.RESEND_API_KEY)
 
-    const adminEmail = process.env.NOTIFICATION_EMAIL || 'submissions@ridgecrestfg.com'
+    const adminEmail = process.env.NOTIFICATION_EMAIL || 'trazn05@gmail.com'
 
     // Prepare admin email content with attachments section
     const adminHtmlContent = `
@@ -319,6 +319,16 @@ export async function POST(request: NextRequest) {
                 </tr>
                 ` : ''}
 
+                ${formData.owner1Dl ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>DL#</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner1Dl}</font></td>
+                </tr>
+                ` : ''}
+
                 ${formData.owner1Credit ? `
                 <tr bgcolor="#EAF2FA">
                   <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Credit Score</strong></font></td>
@@ -338,10 +348,11 @@ export async function POST(request: NextRequest) {
                   <td><font style="font-family:sans-serif;font-size:12px"><img src="${owner1Signature}" width="150" alt="Owner 1 Signature" /></font></td>
                 </tr>
                 ` : ''}
-                ` : ''}
+                ` : ''
+      }
 
-                <!-- Owner 2 Information -->
-                ${formData.owner2Name ? `
+                < !--Owner 2 Information-- >
+    ${formData.owner2Name ? `
                 <tr bgcolor="#EAF2FA">
                   <td colspan="2"><font style="font-family:sans-serif;font-size:13px"><strong>━━━ OWNER #2 INFORMATION ━━━</strong></font></td>
                 </tr>
@@ -412,6 +423,16 @@ export async function POST(request: NextRequest) {
                 </tr>
                 ` : ''}
 
+                ${formData.owner2Dl ? `
+                <tr bgcolor="#EAF2FA">
+                  <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>DL#</strong></font></td>
+                </tr>
+                <tr bgcolor="#FFFFFF">
+                  <td width="20">&nbsp;</td>
+                  <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Dl}</font></td>
+                </tr>
+                ` : ''}
+
                 ${formData.owner2Credit ? `
                 <tr bgcolor="#EAF2FA">
                   <td colspan="2"><font style="font-family:sans-serif;font-size:12px"><strong>Credit Score</strong></font></td>
@@ -420,7 +441,8 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.owner2Credit}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+        }
 
                 ${owner2Signature ? `
                 <tr bgcolor="#EAF2FA">
@@ -430,13 +452,15 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px"><img src="${owner2Signature}" width="150" alt="Owner 2 Signature" /></font></td>
                 </tr>
-                ` : ''}
-                ` : ''}
+                ` : ''
+        }
+  ` : ''
+      }
 
-                <!-- Financial Information -->
-                <tr bgcolor="#EAF2FA">
-                  <td colspan="2"><font style="font-family:sans-serif;font-size:13px"><strong>━━━ FINANCIAL INFORMATION ━━━</strong></font></td>
-                </tr>
+                < !--Financial Information-- >
+    <tr bgcolor="#EAF2FA">
+      <td colspan="2"><font style="font-family:sans-serif;font-size:13px"><strong>━━━ FINANCIAL INFORMATION ━━━</strong></font></td>
+    </tr>
 
                 ${formData.fundingAmount ? `
                 <tr bgcolor="#EAF2FA">
@@ -446,7 +470,8 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.fundingAmount}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+      }
 
                 ${formData.purposeOfFunds ? `
                 <tr bgcolor="#EAF2FA">
@@ -456,7 +481,8 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.purposeOfFunds}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+      }
 
                 ${formData.existingAdvances ? `
                 <tr bgcolor="#EAF2FA">
@@ -466,7 +492,8 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.existingAdvances}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+      }
 
                 ${formData.rentMortgageAmount ? `
                 <tr bgcolor="#EAF2FA">
@@ -476,7 +503,8 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.rentMortgageAmount}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+      }
 
                 ${formData.landlordContact ? `
                 <tr bgcolor="#EAF2FA">
@@ -486,7 +514,8 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.landlordContact}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+      }
 
                 ${formData.landlordNumber ? `
                 <tr bgcolor="#EAF2FA">
@@ -496,14 +525,15 @@ export async function POST(request: NextRequest) {
                   <td width="20">&nbsp;</td>
                   <td><font style="font-family:sans-serif;font-size:12px">${formData.landlordNumber}</font></td>
                 </tr>
-                ` : ''}
+                ` : ''
+      }
 
-              </table>
-            </td>
-          </tr>
-        </table>
+              </table >
+            </td >
+          </tr >
+        </table >
 
-        ${attachments && attachments.length > 0 ? `
+    ${attachments && attachments.length > 0 ? `
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #333; margin-top: 0;">📎 Uploaded Documents (${attachments.length})</h3>
           <div style="margin-top: 15px;">
@@ -516,7 +546,8 @@ export async function POST(request: NextRequest) {
             `).join('')}
           </div>
         </div>
-        ` : ''}
+        ` : ''
+      }
 
         <div style="background-color: #fff; padding: 20px; border: 2px solid #37008F; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #37008F; margin-top: 0;">📄 Complete Application PDF</h3>
@@ -527,18 +558,18 @@ export async function POST(request: NextRequest) {
           <p>This application was submitted from the Ridgecrest Financial Group funding form.</p>
           <p>Submitted on: ${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'long' })}</p>
         </div>
-      </div>
+      </div >
     `
 
     // Send email to admin with PDF attachment
     await resend.emails.send({
       from: 'Ridgecrest Funding Application <noreply@ridgecrestfg.com>',
       to: adminEmail,
-      subject: `New Funding Application from ${formData.legalName}`,
+      subject: `New Funding Application from ${formData.legalName} `,
       html: adminHtmlContent,
       attachments: [
         {
-          filename: `application-${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${timestamp}.pdf`,
+          filename: `application - ${formData.legalName.replace(/[^a-z0-9]/gi, '-').toLowerCase()} -${timestamp}.pdf`,
           content: pdfBuffer,
         },
       ],

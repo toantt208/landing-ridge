@@ -23,6 +23,7 @@ interface ApplicationData {
   owner1Ownership: string
   owner1Dob: string
   owner1Ssn: string
+  owner1Dl?: string
   owner1Credit?: string
   owner2Name?: string
   owner2Address?: string
@@ -34,6 +35,7 @@ interface ApplicationData {
   owner2Ownership?: string
   owner2Dob?: string
   owner2Ssn?: string
+  owner2Dl?: string
   owner2Credit?: string
   fundingAmount?: string
   purposeOfFunds?: string
@@ -255,6 +257,10 @@ export function generatePDFTemplate(data: ApplicationData): string {
       <td><strong>City, State Zip:</strong> ${data.owner2City || ''}, ${data.owner2State || ''} ${data.owner2Zip || ''}</td>
     </tr>
     <tr>
+      <td><strong>DL#:</strong> ${data.owner1Dl || ''}</td>
+      <td><strong>DL#:</strong> ${data.owner2Dl || ''}</td>
+    </tr>
+    <tr>
       <td><strong>Phone:</strong> ${data.owner1Phone || ''}</td>
       <td><strong>Phone:</strong> ${data.owner2Phone || ''}</td>
     </tr>
@@ -379,6 +385,11 @@ export function generatePDFTemplate(data: ApplicationData): string {
         </td>
       </tr>
     </table>
+  </div>
+
+  <!-- LEGAL DISCLAIMER -->
+  <div style="font-size: 9px; color: #333; line-height: 1.4; margin-top: 20px; text-align: justify;">
+    By signing above, you certify that you are authorized to sign this application on behalf of the above listed business and owner(s)/principal(s) (individually and collectively "Applicant") and to certify that all information and supporting documentation submitted with this application is true, correct and complete, and that all such information may be relied upon by RIDGECREST FINANCIAL GROUP, LLC (“RidgeCrest Financial Group, LLC") and the Recipients (defined below). Applicant hereby authorizes RidgeCrest Financial Group, LLC and each of its representatives, successors, assigns, designees, and third-party financial institutions and funding partners, which includes but is not limited to lenders and their servicers and other finance providers with whom RidgeCrest Financial Group, LLC has, or may in the future enter into, commercial brokerage-financing relationships ("Recipients"): (1) to obtain consumer or personal, business credit and/or investigative reports from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax; (2) to obtain other information about you including but not limited to credit card processor statements and bank statements from banks, creditors and other third parties; (3) to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all the Recipients for the purposes of securing Applicant working capital; and (4) to obtain the release, by any creditor or financial institution, of any information relating to you, and to share such information with any/all Recipients. Applicant further certifies that should any of the foregoing information change, to the extent within its knowledge, that Applicant will promptly notify RidgeCrest Financial Group, LLC of such changes.
   </div>
 
 </body>
